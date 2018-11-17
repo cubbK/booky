@@ -69,8 +69,8 @@ export class Header extends React.Component {
 
             <div>Sign In</div>
           </Nav>
-          <Title>Bookmarks</Title>
-          <Subtitle>The place to store them</Subtitle>
+          <Title>Booky</Title>
+          <Subtitle>The place to store your bookmarks</Subtitle>
         </Layout>
         <PhotoContainer>
           <LayoutCentered>
