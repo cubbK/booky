@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Header } from "./homepage/Header";
 
 interface Props {
   [type: string] : any;
@@ -7,7 +8,9 @@ interface Props {
 export class HomePage extends React.Component<Props> {
   render () {
     return (
-      123
+      <React.Fragment>
+        <Header />
+      </React.Fragment>
     )
   }
 }

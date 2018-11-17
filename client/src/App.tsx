@@ -1,6 +1,10 @@
-import * as React from 'react';
+import * as React from "react";
 import { Router } from "@reach/router";
-import { HomePage } from './pages/HomePage';
+import { HomePage } from "./pages/HomePage";
+import { withStyledComponentsTheme } from "./hocs/withStyledComponentsTheme";
+import { createGlobalStyle } from "styled-components";
+import "normalize.css";
+import "./App.css";
 
 class App extends React.Component {
   render() {
@@ -14,4 +18,12 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export interface Theme {
+  titleFamilyFont: string
+}
+
+export const theme: Theme = {
+  titleFamilyFont: "'Varela Round', sans-serif"
+}
+
+export default withStyledComponentsTheme(theme)(App);
