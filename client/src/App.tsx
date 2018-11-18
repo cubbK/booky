@@ -19,11 +19,13 @@ class App extends React.Component {
 }
 
 export interface Theme {
-  titleFamilyFont: string
+  titleFamilyFont: string,
+  main: string;
 }
 
 export const theme: Theme = {
-  titleFamilyFont: "'Varela Round', sans-serif"
+  titleFamilyFont: "'Varela Round', sans-serif",
+  main: "#267df4"
 }
 
 export default withStyledComponentsTheme(theme)(App);

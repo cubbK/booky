@@ -8,7 +8,7 @@ const Button = styled.button`
   color: #737373;
   border-radius: 5px;
   white-space: nowrap;
-  box-shadow: 1px 1px 0px 1px rgba(0, 0, 0, 0.05);
+  box-shadow: 1px 4px 5px 1px rgba(0, 0, 0, 0.1);
   transition-property: background-color, box-shadow;
   transition-duration: 150ms;
   transition-timing-function: ease-in-out;
@@ -17,7 +17,7 @@ const Button = styled.button`
 
   &:focus,
   &:hover {
-    box-shadow: 1px 4px 5px 1px rgba(0, 0, 0, 0.1);
+    box-shadow: 1px 7px 8px 1px rgba(0, 0, 0, 0.1);
   }
 
   &:active {
