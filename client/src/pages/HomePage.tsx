@@ -1,20 +1,22 @@
 import * as React from "react";
 import { Header } from "./homepage/Header";
-import { Screens } from "./homepage/Screens"
+import { Screens } from "./homepage/Screens";
+import { CallToAction } from "./homepage/CallToAction";
+
 interface Props {
-  [type: string] : any;
+  [type: string]: any;
 }
 
 export class HomePage extends React.Component<Props> {
-  render () {
+  render() {
     return (
       <React.Fragment>
         <Header />
         <main>
-          <Screens />  
+          <Screens />
+          <CallToAction />
         </main>
-        
       </React.Fragment>
-    )
+    );
   }
 }
