@@ -12,10 +12,10 @@ const Container = styled.footer`
   @media (max-width: 650px) {
     min-height: 60px;
   }
-  @media(max-width: 500px) {
+  @media (max-width: 500px) {
     flex-direction: column;
     justify-content: space-around;
-    &>* {
+    & > * {
       margin: 10px 0;
     }
   }
