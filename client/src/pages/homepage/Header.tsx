@@ -12,6 +12,9 @@ const Nav = styled.nav`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  @media (max-width: 450px) {
+    min-height: 80px;
+  }
 `;
 
 const LogoContainer = styled.div`
@@ -26,13 +29,15 @@ const Title = styled.h1`
   font-size: 62px;
   margin: 65px 0 20px;
   text-align: center;
+  @media (max-width: 450px) {
+    margin: 20px 0 20px;
+  }
 `;
 
 const Subtitle = styled.h2`
   font-size: 20px;
   color: #8c8f94;
   font-weight: 300;
-  width: 780px;
   text-align: center;
   margin: 0 auto;
 `;
@@ -51,8 +56,17 @@ const LayoutCentered = styled(Layout)`
   flex-direction: column;
 `;
 
-const PhoneImage = styled.img`
+const PhoneContainer = styled.div`
+  width: 360px;
   margin-top: 50px;
+  @media(max-width: 450px) {
+    width: 280px;
+  }
+`;
+
+const PhoneImage = styled.img`
+  width: 100%;
+  height: 100%;
 `;
 
 export class Header extends React.Component {
@@ -75,7 +89,9 @@ export class Header extends React.Component {
         <PhotoContainer>
           <LayoutCentered>
             <GoogleButton />
-            <PhoneImage src={phoneTop} alt="App Showcase" />
+            <PhoneContainer>
+              <PhoneImage src={phoneTop} alt="App Showcase" />
+            </PhoneContainer>
           </LayoutCentered>
         </PhotoContainer>
       </header>
