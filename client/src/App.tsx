@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Router } from "@reach/router";
 import { HomePage } from "./pages/HomePage";
+import { AppPage } from "./pages/AppPage";
 import { withStyledComponentsTheme } from "./hocs/withStyledComponentsTheme";
 import { createGlobalStyle } from "styled-components";
 import "normalize.css";
@@ -11,6 +12,7 @@ class App extends React.Component {
     return (
       <div className="App">
         <Router>
+          <AppPage path="/app" />
           <HomePage path="/" />
         </Router>
       </div>
