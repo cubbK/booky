@@ -11,11 +11,16 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@types/jsonwebtoken": "^8.3.0",
+    "@types/jwt-decode": "^2.2.1",
+    "jsonwebtoken": "^8.4.0",
+    "jwt-decode": "^2.2.0",
     "koa": "^2.6.2",
     "koa-bodyparser": "^4.2.1",
     "koa-combine-routers": "^4.0.2",
     "koa-compress": "^3.0.0",
     "koa-logger": "^3.2.0",
+    "koa-router": "^7.4.0",
     "koa2-cors": "^2.0.6"
   },
   "devDependencies": {
