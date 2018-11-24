@@ -7,7 +7,7 @@ function connectToDb() {
     {
       useNewUrlParser: true,
       user: "root",
-      pass: "root",
+      pass: "",
       auth: {
         authdb: "admin"
       }
