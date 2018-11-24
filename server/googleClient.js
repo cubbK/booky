@@ -1,9 +1,8 @@
 const { google } = require("googleapis");
-import { config } from "./config";
 
-export const oauth2Client = new google.auth.OAuth2(
-  config.GOOGLE_CLIENT_ID,
-  config.GOOGLE_SECRET,
+const oauth2Client = new google.auth.OAuth2(
+  process.env.GOOGLE_CLIENT_ID,
+  process.env.GOOGLE_SECRET,
   "http://localhost:3000/googleRedirect/"
 );
 
@@ -12,3 +11,4 @@ google.options({
   auth: oauth2Client
 });
 
+exports.oauth2Client = oauth2Client;
