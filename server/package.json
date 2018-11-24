@@ -4,8 +4,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "ts-node src/index.ts",
-    "dev": "npx nodemon"
+    "start": "npx nodemon",
+    "dev": "ts-node src/index.ts"
   },
   "author": "",
   "license": "ISC",
@@ -13,6 +13,8 @@
   "dependencies": {
     "@types/jsonwebtoken": "^8.3.0",
     "@types/jwt-decode": "^2.2.1",
+    "cheerio": "^1.0.0-rc.2",
+    "googleapis": "^35.0.0",
     "jsonwebtoken": "^8.4.0",
     "jwt-decode": "^2.2.0",
     "koa": "^2.6.2",
@@ -21,7 +23,9 @@
     "koa-compress": "^3.0.0",
     "koa-logger": "^3.2.0",
     "koa-router": "^7.4.0",
-    "koa2-cors": "^2.0.6"
+    "koa2-cors": "^2.0.6",
+    "mongoose": "^5.3.13",
+    "url-parse": "^1.4.4"
   },
   "devDependencies": {
     "@types/koa-bodyparser": "^5.0.2",

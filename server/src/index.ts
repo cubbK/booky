@@ -8,7 +8,7 @@ import { config } from "./config";
 import { combinedRouter } from "./controllers/index";
 const app = new Koa();
 
-// const db = require('./db')
+const db = require('./db')
 
 // Middlewares
 
@@ -37,5 +37,5 @@ app.use(compress());
 
 app.use(combinedRouter());
 
-app.listen(config.port);
-console.log("Started server on port " + config.port);
+app.listen(config.PORT);
+console.log("Started server on port " + config.PORT);
