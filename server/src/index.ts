@@ -8,12 +8,12 @@ import { config } from "./config";
 import { combinedRouter } from "./controllers/index";
 const app = new Koa();
 
-const db = require('./db')
 
 // Middlewares
 
+
 // error handling
-app.use(async (ctx: Koa.Context, next: Function) => {
+app.use(async (ctx: any, next: Function) => {
   try {
     await next();
   } catch (err) {

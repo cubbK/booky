@@ -6,8 +6,10 @@
     "sourceMap": true,
     "baseUrl": "src",
     "lib": ["esnext"],
-    "outDir": "build"
+    "outDir": "build",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true
   },
   "exclude": ["node_modules", "**/*.spec.ts", "**/*.test.ts"],
-  "include": ["src/**/*.ts"]
+  "include": ["src/**/*.ts"],
 }

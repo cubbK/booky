@@ -2,62 +2,61 @@ import * as Koa from "koa";
 import * as Router from "koa-router";
 import * as jwtDecode from "jwt-decode";
 import * as jwt from "jsonwebtoken";
-const User = require("../models/user");
+import { getGoogleTokenDataFromCode } from "../helpers/authHelper"
 
 export const auth = new Router({
   prefix: "/auth"
 });
 
-const getGoogleTokenDataFromCode = require("../helpers/getGoogleTokenDataFromCode.js");
-const isGoogleAccessTokenValid = require("../helpers/isGoogleAccessTokenValid");
 
-auth.get("/token", async (ctx: any, next: Function) => {
-  console.log(ctx);
-  try {
-    const tokens = await getGoogleTokenDataFromCode(ctx.request.body.code);
 
-    const refreshToken = tokens.refresh_token;
-    const accessToken = tokens.access_token;
+// auth.post("/token", async (ctx: any, next: Function) => {
+//   console.log(ctx);
+//   try {
+//     const tokens = await getGoogleTokenDataFromCode(ctx.request.body.code);
 
-    const userInfo: {
-      sub: string;
-      given_name: string;
-    } = jwtDecode(tokens.id_token);
-    const userId = userInfo.sub;
-    const userName = userInfo.given_name;
+//     const refreshToken = tokens.refresh_token;
+//     const accessToken = tokens.access_token;
 
-    const retrievedUser = await User.findOrCreateByGoogleId(userId);
-    await User.setUserField(userId, "googleRefreshToken", refreshToken);
+//     const userInfo: {
+//       sub: string;
+//       given_name: string;
+//     } = jwtDecode(tokens.id_token);
+//     const userId = userInfo.sub;
+//     const userName = userInfo.given_name;
 
-    console.log(retrievedUser);
+//     const retrievedUser = await User.findOrCreateByGoogleId(userId);
+//     await User.setUserField(userId, "googleRefreshToken", refreshToken);
 
-    const responseObject = {
-      userId: retrievedUser._id
-    };
+//     console.log(retrievedUser);
 
-    const jwtResponse = jwt.sign(responseObject, process.env.JWT_TOKEN_SECRET);
+//     const responseObject = {
+//       userId: retrievedUser._id
+//     };
 
-    ctx.response.body = JSON.stringify(jwtResponse);
-  } catch (err) {
-    console.log(err);
-    ctx.throw(400, "Cannot get user");
-  }
+//     const jwtResponse = jwt.sign(responseObject, process.env.JWT_TOKEN_SECRET);
 
-  return next();
-});
+//     ctx.response.body = JSON.stringify(jwtResponse);
+//   } catch (err) {
+//     console.log(err);
+//     ctx.throw(400, "Cannot get user");
+//   }
 
-auth.post("/", async (ctx: any, next: Function) => {
-  try {
-    const userJWT = ctx.request.body.JWTString;
+//   return next();
+// });
 
-    const user: any = jwt.verify(userJWT, process.env.JWT_TOKEN_SECRET);
+// auth.post("/", async (ctx: any, next: Function) => {
+//   try {
+//     const userJWT = ctx.request.body.JWTString;
 
-    const retrievedUser = await User.getUserByAccessToken(user.userId);
-    ctx.response.body = JSON.stringify(retrievedUser);
-  } catch (err) {
-    if (err.message === "jwt malformed") ctx.throw(400, "jwt malformed");
-    ctx.throw(400, "Cannot get user");
-  }
+//     const user: any = jwt.verify(userJWT, process.env.JWT_TOKEN_SECRET);
 
-  return next();
-});
+//     const retrievedUser = await User.getUserByAccessToken(user.userId);
+//     ctx.response.body = JSON.stringify(retrievedUser);
+//   } catch (err) {
+//     if (err.message === "jwt malformed") ctx.throw(400, "jwt malformed");
+//     ctx.throw(400, "Cannot get user");
+//   }
+
+//   return next();
+// });
