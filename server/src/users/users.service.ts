@@ -1,15 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import { User } from './user.entity';
+import { EntityManager } from 'typeorm';
+import { UserDto } from './user.dto';
 
 @Injectable()
 export class UsersService {
-  private readonly users: User[] = [];
+  constructor(private entityManager: EntityManager) {}
 
-  create(user: User) {
-    this.users.push(user);
+  async create(user: UserDto) {
+    await this.entityManager.save(user);
   }
 
-  findAll(): User[] {
-    return this.users;
+  findAll(): Promise<User[]> {
+    return this.entityManager.find(User);
   }
 }
