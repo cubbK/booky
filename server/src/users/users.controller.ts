@@ -12,7 +12,7 @@ export class UsersController {
   }
 
   @Post('/create')
-  async create(@Body() user: UserDto) {
-    this.usersService.create(user);
+  async create(@Body() userDto: UserDto) {
+    this.usersService.create(userDto);
   }
 }
