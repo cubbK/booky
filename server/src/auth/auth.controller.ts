@@ -17,4 +17,10 @@ export class AuthController {
     if (jwt) res.redirect('http://localhost:3001/login/succes/' + jwt);
     else res.redirect('http://localhost:3001/login/failure');
   }
+
+  @Get('protected')
+  @UseGuards(AuthGuard('jwt'))
+  protectedResource() {
+    return 'JWT is working!';
+  }
 }
