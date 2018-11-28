@@ -11,7 +11,7 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
       clientSecret: googleClientSecret, // <- Replace this with your client secret
       callbackURL: 'http://localhost:4001/auth/google/callback',
       passReqToCallback: true,
-      scope: ['profile'],
+      scope: ['email'],
     });
   }
 
