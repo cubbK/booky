@@ -11,14 +11,6 @@ export class UsersService {
     private readonly userRepository: Repository<User>,
   ) {}
 
-  async create(userDto: UserDto) {
-    await this.userRepository.save(userDto);
-  }
-
-  async findAll(): Promise<User[]> {
-    return await this.userRepository.find();
-  }
-
   async findOneByThirdPartyId(thirdPartyId: string, provider: string) {
     return this.userRepository.findOne({ [provider]: thirdPartyId });
   }
