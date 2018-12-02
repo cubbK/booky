@@ -1,9 +1,12 @@
-import { Controller, Get, UseGuards, Res, Req } from '@nestjs/common';
+import { Controller, Get, UseGuards, Res, Req, Param } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { frontendUrl } from 'src/constants';
+import { AuthService } from './auth.service';
 
 @Controller('auth')
 export class AuthController {
+  constructor(private readonly authService: AuthService) {}
+
   @Get('google')
   @UseGuards(AuthGuard('google'))
   googleLogin() {
@@ -23,5 +26,12 @@ export class AuthController {
   @UseGuards(AuthGuard('jwt'))
   protectedResource() {
     return 'JWT is working!';
+  }
+
+  @UseGuards(AuthGuard('jwt'))
+  @Get('refresh/:jwt')
+  refreshJwt(@Param('jwt') jwt: string) {
+    const newJwt = this.authService.refreshJwt(jwt);
+    return newJwt;
   }
 }
