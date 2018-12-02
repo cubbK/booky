@@ -1,6 +1,6 @@
-import { IsEmail } from 'class-validator';
+import { IsString } from 'class-validator';
 
 export class UserDto {
-  @IsEmail()
-  email: string;
+  @IsString()
+  google: string;
 }

@@ -18,4 +18,19 @@ export class UsersService {
   async findAll(): Promise<User[]> {
     return await this.userRepository.find();
   }
+
+  async findOneByThirdPartyId(thirdPartyId: string, provider: string) {
+    return this.userRepository.findOne({ [provider]: thirdPartyId });
+  }
+
+  async registerOAuthUser(
+    thirdPartyId: string,
+    provider: string,
+  ): Promise<User> {
+    const user = new User();
+    user.google = thirdPartyId;
+
+    return await this.userRepository.save(user);
+
+  }
 }
