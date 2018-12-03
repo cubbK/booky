@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { Link } from 'src/links/link.entity';
 
 @Entity()
 export class User {
@@ -7,4 +8,8 @@ export class User {
 
   @Column()
   google: string;
+
+  @OneToMany(type => Link, link => link.user)
+  links: Link[];
+
 }
