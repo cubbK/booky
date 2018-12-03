@@ -4,6 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Link } from './link.entity';
 import { Repository } from 'typeorm';
 import { User } from 'src/users/user.entity';
+import { getGroupNameFromLink } from './helpers/getGroupNameFromLink';
 
 @Injectable()
 export class LinksService {
@@ -20,6 +21,7 @@ export class LinksService {
     const link = new Link();
     link.url = data.url;
     link.user = user;
+    link.group = getGroupNameFromLink(data.url);
 
     return await this.linkRepository.save(link);
   }
