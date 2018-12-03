@@ -23,6 +23,8 @@ export class LinksService {
     link.user = user;
     link.group = getGroupNameFromLink(data.url);
 
+    console.log(getGroupNameFromLink(data.url));
+
     return await this.linkRepository.save(link);
   }
 }
