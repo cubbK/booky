@@ -5,6 +5,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { LinksModule } from './links/links.module';
+import { roles } from './app.roles';
+import { AccessControlModule } from 'nest-access-control';
 
 @Module({
   imports: [
@@ -18,6 +20,7 @@ import { LinksModule } from './links/links.module';
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,
     }),
+    AccessControlModule.forRoles(roles),
     UsersModule,
     AuthModule,
     LinksModule,

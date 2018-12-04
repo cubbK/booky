@@ -30,4 +30,13 @@ export class LinksService {
 
     return await this.linkRepository.save(link);
   }
+
+  async favoriteLink(toFavorite: boolean, linkId: number) {
+    const link = await this.linkRepository.findOne(linkId);
+
+    link.isFavorite = toFavorite;
+
+    await this.linkRepository.save(link);
+    return link;
+  }
 }

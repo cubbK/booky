@@ -1,5 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany, JoinTable, ManyToMany } from 'typeorm';
 import { Link } from 'src/links/link.entity';
+import { Role } from './role.entity';
 
 @Entity()
 export class User {
@@ -12,4 +13,7 @@ export class User {
   @OneToMany(type => Link, link => link.user)
   links: Link[];
 
+  @ManyToMany(type => Role)
+  @JoinTable()
+  roles: Role[];
 }

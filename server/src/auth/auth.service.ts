@@ -36,9 +36,8 @@ export class AuthService {
         // id: user.id,
         thirdPartyId,
         provider,
-        user: {
-          id: user.id,
-        },
+        id: user.id,
+        roles: user.roles.map(role => role.role),
       };
 
       const jwt: string = sign(payload, this.JWT_SECRET_KEY, {
