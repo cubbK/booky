@@ -22,7 +22,7 @@ export class UserBelongsToResourceGuard implements CanActivate {
     let itemId: number;
 
     if (this.props.type === 'Param') {
-      itemId = request as any;
+      itemId = request.params[this.props.itemIdName];
     }
 
     console.log(itemId);
