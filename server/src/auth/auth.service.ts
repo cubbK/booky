@@ -26,18 +26,21 @@ export class AuthService {
         provider,
       );
 
-      if (!user)
+      if (!user) {
         user = await this.usersService.registerOAuthUser(
           thirdPartyId,
           provider,
         );
+      }
+
+      console.log('user', user);
 
       const payload = {
         // id: user.id,
         thirdPartyId,
         provider,
         id: user.id,
-        roles: user.roles.map(role => role.role),
+        roles: ['USER'],
       };
 
       const jwt: string = sign(payload, this.JWT_SECRET_KEY, {
@@ -45,6 +48,7 @@ export class AuthService {
       });
       return jwt;
     } catch (err) {
+      console.log(err);
       throw new InternalServerErrorException('validateOAuthLogin', err.message);
     }
   }

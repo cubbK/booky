@@ -26,7 +26,6 @@ export class LinksService {
     link.group = getGroupNameFromLink(data.url);
     link.title = pageInfo.title;
 
-    console.log(getGroupNameFromLink(data.url));
 
     return await this.linkRepository.save(link);
   }
