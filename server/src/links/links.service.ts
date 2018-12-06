@@ -26,7 +26,6 @@ export class LinksService {
     link.group = getGroupNameFromLink(data.url);
     link.title = pageInfo.title;
 
-
     return await this.linkRepository.save(link);
   }
 
@@ -37,5 +36,16 @@ export class LinksService {
 
     await this.linkRepository.save(link);
     return link;
+  }
+
+  async doesLinkBelongToUser(linkId: number, userId: number): Promise<boolean> {
+    const user = await this.usersRepository.findOne(userId);
+    const links = await this.linkRepository.find({ user });
+
+    if (!user) {
+      throw new Error('No such user');
+    }
+
+    return links.filter(link => link.id === linkId).length > 0;
   }
 }

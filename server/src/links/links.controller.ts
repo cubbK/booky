@@ -7,15 +7,14 @@ import {
   Put,
   Delete,
   Param,
+  HttpException,
+  HttpStatus,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { UserIdFromJwt } from 'src/users/userIdFromJwt.decorator';
 import { LinkDto } from './link.dto';
 import { LinksService } from './links.service';
-import { ToFavoriteDto } from './toFavorite.dto';
-import { ACGuard, UseRoles } from 'nest-access-control';
-import { User } from 'src/users/user.entity';
-import { UserBelongsToResourceGuard } from 'src/UseBelongsToResource.guard';
+import { FavoriteDto } from './favorite.dto';
 
 @Controller('links')
 export class LinksController {
@@ -27,17 +26,22 @@ export class LinksController {
     return this.linksService.addLink(link, userId);
   }
 
-  @Put('favorite/:linkId/:toFavorite')
-  @UseGuards(AuthGuard('jwt'), new UserBelongsToResourceGuard({
-    itemIdName: 'linkId',
-    type: 'Param',
-    itemsFieldName: 'links',
-  }))
-  async favoriteLink(
-    @Param('linkId') linkId: number,
-    @Param('toFavorite') toFavorite: boolean,
-  ) {
-    return this.linksService.favoriteLink(toFavorite, linkId);
+  @Put('favorite')
+  @UseGuards(AuthGuard('jwt'))
+  async favoriteLink(@Body() props: FavoriteDto, @Req() req) {
+    const doesLinkBelongToUser: boolean = await this.linksService.doesLinkBelongToUser(
+      props.linkId,
+      req.user.id,
+    );
+
+    if (doesLinkBelongToUser) {
+      return this.linksService.favoriteLink(props.toFavorite, props.linkId);
+    } else {
+      throw new HttpException(
+        'Forbidden, this link does not belong to this user',
+        HttpStatus.FORBIDDEN,
+      );
+    }
   }
 
   @Delete('delete/:linkId')
