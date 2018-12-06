@@ -1,1 +1,3 @@
 server/src/config.ts
+server/src/constants.ts
+node_modules
