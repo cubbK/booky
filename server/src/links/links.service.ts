@@ -38,6 +38,10 @@ export class LinksService {
     return link;
   }
 
+  async deleteLink(linkId: number) {
+    await this.linkRepository.delete(linkId);
+  }
+
   async doesLinkBelongToUser(linkId: number, userId: number): Promise<boolean> {
     const user = await this.usersRepository.findOne(userId);
     const links = await this.linkRepository.find({ user });
@@ -48,4 +52,6 @@ export class LinksService {
 
     return links.filter(link => link.id === linkId).length > 0;
   }
+
+  
 }
