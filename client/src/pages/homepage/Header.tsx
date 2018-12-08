@@ -5,7 +5,7 @@ import { Link } from "@reach/router";
 import logo from "./logo.svg";
 import mountains from "./mountains-header.png";
 import phoneTop from "./phoneTop.png";
-import { GoogleButton } from "../../components/GoogleButton";
+import { GoogleButtonContainer } from "./GoogleButtonContainer";
 
 const Nav = styled.nav`
   min-height: 130px;
@@ -88,7 +88,7 @@ export class Header extends React.Component {
         </Layout>
         <PhotoContainer>
           <LayoutCentered>
-            <GoogleButton />
+            <GoogleButtonContainer />
             <PhoneContainer>
               <PhoneImage src={phoneTop} alt="App Showcase" />
             </PhoneContainer>

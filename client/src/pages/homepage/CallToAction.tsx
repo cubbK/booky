@@ -1,6 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
-import { GoogleButton } from "../../components/GoogleButton";
+import { GoogleButtonContainer } from "./GoogleButtonContainer";
 
 const Container = styled.section`
   height: 650px;
@@ -41,7 +41,7 @@ export const CallToAction = (props: any) => (
   <Container {...props}>
     <Title>Start using it now</Title>
     <StylishLine />
-    <GoogleButton />
+    <GoogleButtonContainer />
     <Note>* For the MVC's sake, auth is only done through Google</Note>
   </Container>
 );
