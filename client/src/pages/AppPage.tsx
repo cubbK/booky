@@ -11,6 +11,9 @@ export class AppPage extends React.Component<Props> {
     return (
       <React.Fragment>
         <Header />
+        <main>
+          
+        </main>
         <Footer />
       </React.Fragment>
     );
