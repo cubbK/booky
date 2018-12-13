@@ -10,6 +10,10 @@ export async function fetchWithAuthAndRefreshJWT(config: AxiosRequestConfig) {
   store.dispatch(refreshJWT(jwt));
 
   const configWithAuth = produce(config, draftConfig => {
+    if (draftConfig.headers) {
+      draftConfig.headers.Authorization = `Bearer ${jwt}`;
+    }
+    draftConfig.headers = {}
     draftConfig.headers.Authorization = `Bearer ${jwt}`;
   });
 
