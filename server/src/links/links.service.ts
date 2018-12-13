@@ -53,5 +53,9 @@ export class LinksService {
     return links.filter(link => link.id === linkId).length > 0;
   }
 
-  
+  async getLinks(userId: number) {
+    const user = await this.usersRepository.findOne(userId);
+    const links = await this.linkRepository.find({ user });
+    return links;
+  }
 }

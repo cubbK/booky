@@ -9,6 +9,7 @@ import {
   Param,
   HttpException,
   HttpStatus,
+  Get,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { UserIdFromJwt } from 'src/users/userIdFromJwt.decorator';
@@ -20,6 +21,12 @@ import { DeleteDto } from './delete.dto';
 @Controller('links')
 export class LinksController {
   constructor(private readonly linksService: LinksService) {}
+
+  @Get()
+  @UseGuards(AuthGuard('jwt'))
+  async getLinks(@UserIdFromJwt() userId) {
+    return this.linksService.getLinks(userId);
+  }
 
   @Post()
   @UseGuards(AuthGuard('jwt'))
