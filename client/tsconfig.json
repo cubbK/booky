@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "allowJs": true,
+    "lib": ["esnext", "dom"],
     "jsx": "preserve",
     "target": "es5",
     "skipLibCheck": false,

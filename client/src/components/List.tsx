@@ -1,8 +1,14 @@
 import * as React from "react";
-import { Paper } from "@material-ui/core"
+import { Paper, ListItem } from "@material-ui/core";
 
 interface Props {
-  [type: string] : any;
+  [type: string]: any;
 }
 
-export const List = (props: Props) => <Paper {...props}>{props.children}</Paper>
+export class List extends React.Component {
+  static Item = ListItem;
+  
+  render() {
+    return <Paper {...this.props}>{this.props.children}</Paper>;
+  }
+}
