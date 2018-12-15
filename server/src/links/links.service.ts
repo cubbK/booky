@@ -58,4 +58,28 @@ export class LinksService {
     const links = await this.linkRepository.find({ user });
     return links;
   }
+
+  async getGroups(userId: number) {
+    const user = await this.usersRepository.findOne(userId);
+    const links = await this.linkRepository.find({ user });
+
+    const groups: Array<{ name: string; linksCount: number; id: number }> = [];
+
+    for (const link of links) {
+      const categoryIndex = groups.findIndex(
+        category => category.name === link.group,
+      );
+      if (categoryIndex === -1) {
+        groups.push({
+          id: groups.length,
+          name: link.group,
+          linksCount: 1,
+        });
+      } else {
+        groups[categoryIndex].linksCount += 1;
+      }
+    }
+
+    return groups;
+  }
 }

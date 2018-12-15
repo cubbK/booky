@@ -28,6 +28,18 @@ export class LinksController {
     return this.linksService.getLinks(userId);
   }
 
+  @Get('/groups')
+  @UseGuards(AuthGuard('jwt'))
+  async getGroups(@UserIdFromJwt() userId) {
+    return this.linksService.getGroups(userId);
+  }
+
+  @Get('/group/:groupName')
+  @UseGuards(AuthGuard('jwt'))
+  async getLinksByGroupName(@UserIdFromJwt() userId) {
+    return this.linksService.getLinks(userId);
+  }
+
   @Post()
   @UseGuards(AuthGuard('jwt'))
   async addLink(@UserIdFromJwt() userId, @Body() link: LinkDto) {
