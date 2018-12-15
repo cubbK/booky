@@ -1,7 +1,7 @@
 import axios from "axios";
 import { SET_JWT, GET_LINKS, REFRESH_JWT } from "./actionTypes";
 import { API_URL } from "../constants";
-import { fetchWithAuthAndRefreshJWT } from "../helpers/fetch";
+import { fetchWithAuth } from "../helpers/fetchWithAuth";
 
 export function setJwt(jwt: string) {
   return {
@@ -13,7 +13,7 @@ export function setJwt(jwt: string) {
 export function getLinks() {
   return {
     type: GET_LINKS,
-    payload: fetchWithAuthAndRefreshJWT({
+    payload: fetchWithAuth({
       method: "GET",
       url: `${API_URL}/links`
     })

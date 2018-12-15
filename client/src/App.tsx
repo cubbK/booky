@@ -10,18 +10,20 @@ import "./App.css";
 import { Provider } from "react-redux";
 import { store, persistor } from "./redux/store";
 import { PersistGate } from "redux-persist/integration/react";
+import { withRefreshJwt } from "./hocs/withRefreshJwt";
+import { compose } from "redux";
 
 class App extends React.Component {
   render() {
     return (
       <div className="App">
         <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-          <Router>
-            <HomePage path="/" />
-            <AppPage path="/app" />
-            <LoginPage path="/login/:status/:jwt" />
-          </Router>
+          <PersistGate loading={null} persistor={persistor}>
+            <Router>
+              <HomePage path="/" />
+              <AppPage path="/app" />
+              <LoginPage path="/login/:status/:jwt" />
+            </Router>
           </PersistGate>
         </Provider>
       </div>
@@ -39,4 +41,6 @@ export const theme: Theme = {
   main: "#267df4"
 };
 
-export default withStyledComponentsTheme(theme)(App);
+export default compose(
+  withStyledComponentsTheme(theme)
+)(App);

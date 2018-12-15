@@ -3,11 +3,9 @@ import produce from "immer";
 import { store } from "../redux/store";
 import { refreshJWT } from "../redux/actions";
 
-export async function fetchWithAuthAndRefreshJWT(config: AxiosRequestConfig) {
+export async function fetchWithAuth(config: AxiosRequestConfig) {
   const state = store.getState();
   const jwt = state.jwt;
-
-  store.dispatch(refreshJWT(jwt));
 
   const configWithAuth = produce(config, draftConfig => {
     if (draftConfig.headers) {
