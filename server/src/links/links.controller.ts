@@ -36,8 +36,11 @@ export class LinksController {
 
   @Get('/group/:groupName')
   @UseGuards(AuthGuard('jwt'))
-  async getLinksByGroupName(@UserIdFromJwt() userId) {
-    return this.linksService.getLinks(userId);
+  async getLinksByGroupName(
+    @UserIdFromJwt() userId,
+    @Param('groupName') groupName: string,
+  ) {
+    return this.linksService.getLinksByGroupName(userId, groupName);
   }
 
   @Post()

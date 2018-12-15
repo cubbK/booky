@@ -82,4 +82,10 @@ export class LinksService {
 
     return groups;
   }
+
+  async getLinksByGroupName(userId: number, groupName: string) {
+    const user = await this.usersRepository.findOne(userId);
+    const links = await this.linkRepository.find({ user, group: groupName });
+    return links;
+  }
 }
