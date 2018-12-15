@@ -1,7 +1,6 @@
 import * as React from "react";
 import { Footer } from "../components/Footer";
-import { CategoryList } from "./apppage/CategoryList";
-import { withRefreshJwt } from "../hocs/withRefreshJwt";
+import { GroupsList } from "./apppage/GroupsList";
 import { useRedirectIfUnauthorized } from "../hooks/useRedirectIfUnauthorizer";
 import { AppHeader } from "./apppage/AppHeader";
 import styled from "styled-components";
@@ -16,13 +15,13 @@ interface Props {
   [type: string]: any;
 }
 
-export const AppPage = (props: Props) => {
+export const AppPage =(props: Props) => {
   const isAuthorized = useRedirectIfUnauthorized();
   return (
     <Container>
       <AppHeader />
       <main>
-        <CategoryList />
+        <GroupsList />
       </main>
       <Footer />
     </Container>

@@ -4,4 +4,8 @@ interface Props {
   [type: string]: any;
 }
 
-export const GroupPage = (props: Props) => <div>groupapage</div>
+export const GroupPage = (props: Props) => {
+  
+
+  return <div>groupapage</div>;
+};
