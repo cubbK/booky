@@ -16,7 +16,7 @@ interface Props {
 export class LoginPage extends React.Component<Props> {
   componentDidMount() {
     this.props.jwt && this.props.setJwt(this.props.jwt);
-    redirectTo("/app")
+    redirectTo("/")
   }
 
   render() {

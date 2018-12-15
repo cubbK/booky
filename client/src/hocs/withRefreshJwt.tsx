@@ -6,6 +6,7 @@ import { CombinedReducers } from "../redux/reducers";
 interface Props {
   refreshJWT: (jwt: string) => void;
   jwt: string;
+  [type:string]: any;
 }
 
 export const withRefreshJwt = <P extends object>(

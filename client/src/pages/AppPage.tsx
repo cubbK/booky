@@ -1,24 +1,23 @@
 import * as React from "react";
 import { Footer } from "../components/Footer";
-import { Header } from "../components/Header";
 import { CategoryList } from "./apppage/CategoryList";
 import { withRefreshJwt } from "../hocs/withRefreshJwt";
+import { useRedirectIfUnauthorized } from "../hooks/useRedirectIfUnauthorizer";
+import { AppHeader } from "./apppage/AppHeader";
 
 interface Props {
   [type: string]: any;
 }
 
-@(withRefreshJwt as any)
-export class AppPage extends React.Component<Props> {
-  render() {
-    return (
-      <React.Fragment>
-        <Header />
-        <main>
-          <CategoryList />
-        </main>
-        <Footer />
-      </React.Fragment>
-    );
-  }
-}
+export const AppPage = (props: Props) => {
+  const isAuthorized = useRedirectIfUnauthorized();
+  return (
+    <React.Fragment>
+      <AppHeader />
+      <main>
+        <CategoryList />
+      </main>
+      <Footer />
+    </React.Fragment>
+  );
+};

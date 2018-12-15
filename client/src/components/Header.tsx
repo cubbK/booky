@@ -26,6 +26,7 @@ export class Header extends React.Component {
   render() {
     return <Container>
       <Logo>Logo</Logo>
+      {this.props.children}
     </Container>;
   }
 }

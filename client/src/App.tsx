@@ -13,22 +13,20 @@ import { PersistGate } from "redux-persist/integration/react";
 import { withRefreshJwt } from "./hocs/withRefreshJwt";
 import { compose } from "redux";
 
-class App extends React.Component {
-  render() {
-    return (
-      <div className="App">
-        <Provider store={store}>
-          <PersistGate loading={null} persistor={persistor}>
-            <Router>
-              <HomePage path="/" />
-              <AppPage path="/app" />
-              <LoginPage path="/login/:status/:jwt" />
-            </Router>
-          </PersistGate>
-        </Provider>
-      </div>
-    );
-  }
+function App() {
+  return (
+    <div className="App">
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <Router>
+            <HomePage path="/landing" />
+            <AppPage path="/" />
+            <LoginPage path="/login/:status/:jwt" />
+          </Router>
+        </PersistGate>
+      </Provider>
+    </div>
+  );
 }
 
 export interface Theme {
@@ -41,6 +39,4 @@ export const theme: Theme = {
   main: "#267df4"
 };
 
-export default compose(
-  withStyledComponentsTheme(theme)
-)(App);
+export default compose(withStyledComponentsTheme(theme))(App);
