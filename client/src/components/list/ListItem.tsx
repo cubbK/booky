@@ -7,7 +7,7 @@ interface Props {
 }
 
 export const ListItem = (props: Props) => (
-  <ListItem  onClick={props.onClick}>
+  <ListItem onClick={props.onClick} {...props}>
     <ListItemIcon>
       <InboxIcon />
     </ListItemIcon>

@@ -12,6 +12,7 @@ import { store, persistor } from "./redux/store";
 import { PersistGate } from "redux-persist/integration/react";
 import { withRefreshJwt } from "./hocs/withRefreshJwt";
 import { compose } from "redux";
+import { GroupPage } from "./pages/GroupPage";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
             <HomePage path="/landing" />
             <AppPage path="/" />
             <LoginPage path="/login/:status/:jwt" />
+            <GroupPage path="/group/:group" />
           </Router>
         </PersistGate>
       </Provider>
