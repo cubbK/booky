@@ -13,7 +13,7 @@ export function useRedirectIfUnauthorized(): boolean {
     } else {
       setAuthorized(true);
     }
-  });
+  }, []);
 
   return isAuthorized;
 }

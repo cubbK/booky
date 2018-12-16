@@ -1,22 +1,42 @@
 import * as React from "react";
-import { connect } from "react-redux";
 import { List } from "../../components/List";
-import { CombinedReducers } from "../../redux/reducers";
 import { Link } from "@reach/router";
 import { fetchWithAuth } from "../../helpers/fetchWithAuth";
 import { API_URL } from "../../constants";
-import { useFetch } from "../../hooks/useFetch";
 
 interface Props {
   [type: string]: any;
 }
 
 export const GroupsList = (props: Props) => {
-  const [data, error, loading] = useFetch({ url: `${API_URL}/links/groups` });
+  const [error, setError] = React.useState(null);
+  const [data, setData] = React.useState(null);
+  const [loading, setLoading] = React.useState(false);
 
-  console.log(data, loading, error);
+  React.useEffect(() => {
+    setLoading(true);
+    fetchWithAuth({ url: `${API_URL}/links/groups` }).then(
+      response => {
+        setData(response.data);
+        setLoading(false);
+      },
+      err => {
+        setError(err);
+        setLoading(false);
+      }
+    );
+  }, []);
 
-  return <List>{mapListItems([])}</List>;
+  if (loading) {
+    return <div>Loading</div>;
+  }
+
+  if (error) {
+    console.log(error);
+    return <div>Error</div>
+  }
+
+  return <List>{mapListItems(data || [])}</List>;
 };
 
 function mapListItems(categories: Array<{ name: string; linksCount: number }>) {
