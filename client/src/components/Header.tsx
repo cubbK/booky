@@ -1,5 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
+import { Link } from "@reach/router";
 
 const Container = styled.header`
   min-height: 55px;
@@ -18,15 +19,17 @@ const Container = styled.header`
   }
 `;
 
-const Logo = styled.div`
-
-`
+const Logo = styled.div``;
 
 export class Header extends React.Component {
   render() {
-    return <Container>
-      <Logo>Logo</Logo>
-      {this.props.children}
-    </Container>;
+    return (
+      <Container>
+        <Link to="/">
+          <Logo>Logo</Logo>
+        </Link>
+        {this.props.children}
+      </Container>
+    );
   }
 }
