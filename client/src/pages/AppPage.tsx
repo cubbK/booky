@@ -4,6 +4,8 @@ import { GroupsList } from "./apppage/GroupsList";
 import { useRedirectIfUnauthorized } from "../hooks/useRedirectIfUnauthorizer";
 import { AppHeader } from "./apppage/AppHeader";
 import styled from "styled-components";
+import { Router } from "@reach/router";
+import { LinksList } from "./apppage/LinksList";
 
 const Container = styled.div`
   min-height: 100vh;
@@ -15,13 +17,16 @@ interface Props {
   [type: string]: any;
 }
 
-export const AppPage =(props: Props) => {
+export const AppPage = (props: Props) => {
   const isAuthorized = useRedirectIfUnauthorized();
   return (
     <Container>
       <AppHeader />
       <main>
-        <GroupsList />
+        <Router>
+          <GroupsList path="/" />
+          <LinksList path="group/:group" />
+        </Router>
       </main>
       <Footer />
     </Container>
