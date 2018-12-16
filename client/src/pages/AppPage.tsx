@@ -7,6 +7,7 @@ import { Router, navigate } from "@reach/router";
 import { LinksList } from "./apppage/LinksList";
 import { connect } from "react-redux";
 import { CombinedReducers } from "../redux/reducers";
+import { AddLinkForm } from "./apppage/AddLinkForm";
 
 const Container = styled.div`
   min-height: 100vh;
@@ -35,6 +36,7 @@ export const AppPage = connect(
     <Container>
       <AppHeader />
       <main>
+        <AddLinkForm />
         <Router>
           <GroupsList path="/" />
           <LinksList path="group/:group" />
