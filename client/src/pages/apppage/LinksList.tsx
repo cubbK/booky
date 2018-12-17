@@ -3,13 +3,17 @@ import { fetchWithAuth } from "../../helpers/fetchWithAuth";
 import { API_URL } from "../../constants";
 import { List } from "../../components/List";
 import { Link } from "@reach/router";
+import { connect } from "react-redux";
+import { CombinedReducers } from "../../redux/reducers";
 
 interface Props {
-  group? :string;
+  group?: string;
   [type: string]: any;
 }
 
-export const LinksList = (props: Props) => {
+export const LinksList = connect((state: CombinedReducers) => ({
+  newLink: state.newLink
+}))((props: Props) => {
   const [error, setError] = React.useState(null);
   const [data, setData] = React.useState(null);
   const [loading, setLoading] = React.useState(false);
@@ -26,7 +30,7 @@ export const LinksList = (props: Props) => {
         setLoading(false);
       }
     );
-  }, []);
+  }, [props.newLink]);
 
   if (loading) {
     return <div>Loading</div>;
@@ -34,17 +38,18 @@ export const LinksList = (props: Props) => {
 
   if (error) {
     console.log(error);
-    return <div>Error</div>
+    return <div>Error</div>;
   }
 
   return <List>{mapListItems(data || [])}</List>;
-};
-
+});
 
 function mapListItems(links: Array<any>) {
   return links.map((link, id) => (
-      <List.Item key={link.id}>
-        <a href={link.url} target="_blank">{link.url}</a>
-      </List.Item>
+    <List.Item key={link.id}>
+      <a href={link.url} target="_blank">
+        {link.url}
+      </a>
+    </List.Item>
   ));
 }

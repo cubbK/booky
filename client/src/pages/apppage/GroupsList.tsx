@@ -3,29 +3,36 @@ import { List } from "../../components/List";
 import { Link } from "@reach/router";
 import { fetchWithAuth } from "../../helpers/fetchWithAuth";
 import { API_URL } from "../../constants";
+import { connect } from "react-redux";
+import { CombinedReducers } from "../../redux/reducers";
 
 interface Props {
   [type: string]: any;
 }
 
-export const GroupsList = (props: Props) => {
+export const GroupsList = connect((state: CombinedReducers) => ({
+  newLink: state.newLink
+}))((props: Props) => {
   const [error, setError] = React.useState(null);
   const [data, setData] = React.useState(null);
   const [loading, setLoading] = React.useState(false);
 
-  React.useEffect(() => {
-    setLoading(true);
-    fetchWithAuth({ url: `${API_URL}/links/groups` }).then(
-      response => {
-        setData(response.data);
-        setLoading(false);
-      },
-      err => {
-        setError(err);
-        setLoading(false);
-      }
-    );
-  }, []);
+  React.useEffect(
+    () => {
+      setLoading(true);
+      fetchWithAuth({ url: `${API_URL}/links/groups` }).then(
+        response => {
+          setData(response.data);
+          setLoading(false);
+        },
+        err => {
+          setError(err);
+          setLoading(false);
+        }
+      );
+    },
+    [props.newLink]
+  );
 
   if (loading) {
     return <div>Loading</div>;
@@ -33,11 +40,11 @@ export const GroupsList = (props: Props) => {
 
   if (error) {
     console.log(error);
-    return <div>Error</div>
+    return <div>Error</div>;
   }
 
   return <List>{mapListItems(data || [])}</List>;
-};
+});
 
 function mapListItems(categories: Array<{ name: string; linksCount: number }>) {
   return categories.map((category, id) => (

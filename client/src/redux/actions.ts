@@ -1,5 +1,5 @@
 import axios from "axios";
-import { SET_JWT, REFRESH_JWT } from "./actionTypes";
+import { SET_JWT, REFRESH_JWT, SET_NEW_LINK } from "./actionTypes";
 import { API_URL } from "../constants";
 import { fetchWithAuth } from "../helpers/fetchWithAuth";
 
@@ -16,5 +16,12 @@ export function refreshJWT(jwt: string | null) {
     payload: axios.get(`${API_URL}/auth/refresh/${jwt}`, {
       headers: { Authorization: `Bearer ${jwt}` }
     })
+  };
+}
+
+export function setNewLink(link: any) {
+  return {
+    type: SET_NEW_LINK,
+    payload: link
   };
 }
