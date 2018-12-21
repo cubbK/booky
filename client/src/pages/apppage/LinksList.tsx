@@ -1,48 +1,39 @@
 import * as React from "react";
-import { fetchWithAuth } from "../../helpers/fetchWithAuth";
-import { API_URL } from "../../constants";
 import { List } from "../../components/List";
-import { Link } from "@reach/router";
-import { connect } from "react-redux";
 import { CombinedReducers } from "../../redux/reducers";
+import { fetchLinks } from "../../redux/actions";
+import { connect } from "react-redux";
+import { Links, Link } from "../../redux/reducers/linksReducer";
+import { filterLinksByGroupSelector } from "../../redux/selectors/filterLinksByGroupSelector";
+import produce from "immer";
 
 interface Props {
-  group?: string;
+  links: Links;
+  fetchLinks: (group: string) => void;
   [type: string]: any;
 }
 
-export const LinksList = (props: Props) => {
-  const [error, setError] = React.useState(null);
-  const [data, setData] = React.useState(null);
-  const [loading, setLoading] = React.useState(false);
-
+export const LinksList = connect(
+  mapStateToProps,
+  { fetchLinks }
+)((props: Props) => {
   React.useEffect(() => {
-    setLoading(true);
-    fetchWithAuth({ url: `${API_URL}/links/group/${props.group}` }).then(
-      response => {
-        setData(response.data);
-        setLoading(false);
-      },
-      err => {
-        setError(err);
-        setLoading(false);
-      }
-    );
-  }, [props.newLink]);
+    props.fetchLinks(props.group);
+  }, []);
 
-  if (loading) {
-    return <div>Loading</div>;
-  }
-
-  if (error) {
-    console.log(error);
+  if (props.links.error) {
     return <div>Error</div>;
   }
 
-  return <List>{mapListItems(data || [])}</List>;
-};
+  return (
+    <React.Fragment>
+      {props.loading ? "Loading" : null}
+      <List>{mapListItems(props.links.data)}</List>
+    </React.Fragment>
+  );
+});
 
-function mapListItems(links: Array<any>) {
+function mapListItems(links: Array<Link>) {
   return links.map((link, id) => (
     <List.Item key={link.id}>
       <a href={link.url} target="_blank">
@@ -50,4 +41,16 @@ function mapListItems(links: Array<any>) {
       </a>
     </List.Item>
   ));
+}
+
+function mapStateToProps(state: CombinedReducers, props: any) {
+  return {
+    links: filterLinks(state.links, props.group)
+  };
+}
+
+function filterLinks (links: Links, group: string) {
+  return produce(links, draftLinks => {
+    draftLinks.data = draftLinks.data.filter(link => link.group === group)
+  })
 }

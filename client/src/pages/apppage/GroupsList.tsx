@@ -18,12 +18,17 @@ export const GroupsList = connect(
   { fetchGroups }
 )((props: Props) => {
   React.useEffect(() => {
-    console.log(123)
+    console.log(123);
     props.fetchGroups();
   }, []);
 
-  if(props.groups.error) {
-    return <div>Error</div>
+  if (props.groups.error) {
+    return (
+      <React.Fragment>
+        <AddLinkForm />
+        <div>Error</div>
+      </React.Fragment>
+    );
   }
 
   return (
