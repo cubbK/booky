@@ -1,5 +1,5 @@
 import axios from "axios";
-import { SET_JWT, REFRESH_JWT, SET_NEW_LINK } from "./actionTypes";
+import { SET_JWT, REFRESH_JWT, FETCH_GROUPS } from "./actionTypes";
 import { API_URL } from "../constants";
 import { fetchWithAuth } from "../helpers/fetchWithAuth";
 
@@ -19,9 +19,9 @@ export function refreshJWT(jwt: string | null) {
   };
 }
 
-export function setNewLink(link: any) {
+export function fetchGroups () {
   return {
-    type: SET_NEW_LINK,
-    payload: link
-  };
+    type: FETCH_GROUPS,
+    payload: fetchWithAuth({url: `${API_URL}/links/groups`})
+  }
 }

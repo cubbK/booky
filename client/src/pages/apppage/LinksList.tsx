@@ -11,9 +11,7 @@ interface Props {
   [type: string]: any;
 }
 
-export const LinksList = connect((state: CombinedReducers) => ({
-  newLink: state.newLink
-}))((props: Props) => {
+export const LinksList = (props: Props) => {
   const [error, setError] = React.useState(null);
   const [data, setData] = React.useState(null);
   const [loading, setLoading] = React.useState(false);
@@ -42,7 +40,7 @@ export const LinksList = connect((state: CombinedReducers) => ({
   }
 
   return <List>{mapListItems(data || [])}</List>;
-});
+};
 
 function mapListItems(links: Array<any>) {
   return links.map((link, id) => (

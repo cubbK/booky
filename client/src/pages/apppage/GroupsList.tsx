@@ -1,57 +1,52 @@
 import * as React from "react";
 import { List } from "../../components/List";
 import { Link } from "@reach/router";
-import { fetchWithAuth } from "../../helpers/fetchWithAuth";
-import { API_URL } from "../../constants";
 import { connect } from "react-redux";
 import { CombinedReducers } from "../../redux/reducers";
+import { AddLinkForm } from "./AddLinkForm";
+import { Group, Groups } from "../../redux/reducers/groupsReducer";
+import { fetchGroups } from "../../redux/actions";
 
 interface Props {
+  groups: Groups;
+  fetchGroups: () => void;
   [type: string]: any;
 }
 
-export const GroupsList = connect((state: CombinedReducers) => ({
-  newLink: state.newLink
-}))((props: Props) => {
-  const [error, setError] = React.useState(null);
-  const [data, setData] = React.useState(null);
-  const [loading, setLoading] = React.useState(false);
+export const GroupsList = connect(
+  mapStateToProps,
+  { fetchGroups }
+)((props: Props) => {
+  React.useEffect(() => {
+    console.log(123)
+    props.fetchGroups();
+  }, []);
 
-  React.useEffect(
-    () => {
-      setLoading(true);
-      fetchWithAuth({ url: `${API_URL}/links/groups` }).then(
-        response => {
-          setData(response.data);
-          setLoading(false);
-        },
-        err => {
-          setError(err);
-          setLoading(false);
-        }
-      );
-    },
-    [props.newLink]
+  if(props.groups.error) {
+    return <div>Error</div>
+  }
+
+  return (
+    <React.Fragment>
+      <AddLinkForm />
+      {props.groups.loading ? "Loading" : null}
+      <List>{mapListItems(props.groups.data)}</List>
+    </React.Fragment>
   );
-
-  if (loading) {
-    return <div>Loading</div>;
-  }
-
-  if (error) {
-    console.log(error);
-    return <div>Error</div>;
-  }
-
-  return <List>{mapListItems(data || [])}</List>;
 });
 
-function mapListItems(categories: Array<{ name: string; linksCount: number }>) {
-  return categories.map((category, id) => (
-    <Link to={`/group/${category.name}`} key={id}>
+function mapListItems(groups: Array<Group>) {
+  return groups.map((group, id) => (
+    <Link to={`/group/${group.name}`} key={id}>
       <List.Item button={true}>
-        {category.name}({category.linksCount})
+        {group.name}({group.linksCount})
       </List.Item>
     </Link>
   ));
+}
+
+function mapStateToProps(state: CombinedReducers) {
+  return {
+    groups: state.groups
+  };
 }

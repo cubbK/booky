@@ -3,13 +3,9 @@ import { Formik, FormikProps, Form, Field, FieldProps } from "formik";
 import { fetchWithAuth } from "../../helpers/fetchWithAuth";
 import { API_URL } from "../../constants";
 import { connect } from "react-redux";
-import { setNewLink } from "../../redux/actions";
 
-interface Props {
-  setNewLink: (link: any) =>void;
-}
 
-export const AddLinkForm = connect(null, { setNewLink })((props: Props) => {
+export const AddLinkForm = (props: any) => {
   return (
     <Formik
       initialValues={{ link: "" }}
@@ -52,4 +48,4 @@ export const AddLinkForm = connect(null, { setNewLink })((props: Props) => {
       )}
     </Formik>
   );
-});
+};
