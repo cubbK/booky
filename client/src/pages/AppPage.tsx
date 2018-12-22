@@ -7,6 +7,7 @@ import { Router, navigate } from "@reach/router";
 import { LinksList } from "./apppage/LinksList";
 import { connect } from "react-redux";
 import { CombinedReducers } from "../redux/reducers";
+import { Paper } from "@material-ui/core";
 
 const Container = styled.div`
   min-height: 100vh;
@@ -36,8 +37,8 @@ export const AppPage = connect(
       <AppHeader />
       <main>
         <Router>
-          <GroupsList path="/" />
-          <LinksList path="group/:group" />
+            <GroupsList path="/" />
+            <LinksList path="group/:group" />
         </Router>
       </main>
       <Footer />

@@ -1,5 +1,6 @@
 import { PENDING, FULFILLED, REJECTED, FETCH_LINKS } from "../actionTypes";
 import produce from "immer";
+import { uniqWith, isEqual } from "lodash";
 
 export interface Link {
   id: number;
@@ -30,7 +31,9 @@ export function linksReducer(state = defaultState, action: any) {
     case FETCH_LINKS + FULFILLED:
       return produce(state, draftState => {
         draftState.loading = false;
-        draftState.data.push(...action.payload.data); 
+        const dataWithDuplicates = [...draftState.data, ...action.payload.data];
+        const dataWithoutDuplicates = uniqWith(dataWithDuplicates, isEqual)
+        draftState.data = dataWithoutDuplicates;
         draftState.error = null;
       });
     case FETCH_LINKS + REJECTED: 

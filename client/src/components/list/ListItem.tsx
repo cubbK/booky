@@ -3,7 +3,8 @@ import { ListItemIcon, ListItemText } from "@material-ui/core";
 import { Inbox as InboxIcon } from "@material-ui/icons";
 
 interface Props {
-  onClick: () => any;
+  onClick?: () => any;
+  [type: string]: any;
 }
 
 export const ListItem = (props: Props) => (

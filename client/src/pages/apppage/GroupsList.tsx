@@ -43,7 +43,7 @@ export const GroupsList = connect(
 function mapListItems(groups: Array<Group>) {
   return groups.map((group, id) => (
     <Link to={`/group/${group.name}`} key={id}>
-      <List.Item button={true}>
+      <List.Item button={true} onClick={() => console.log("click")}>
         {group.name}({group.linksCount})
       </List.Item>
     </Link>
