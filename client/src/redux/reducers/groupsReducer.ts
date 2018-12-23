@@ -41,12 +41,11 @@ export function groupsReducer(state = defaultState, action: any) {
         draftState.loading = false;
         draftState.error = action.payload;
       });
-    case ADD_LINK + FULFILLED:
+    case ADD_LINK:
       console.log(action.payload)
       return produce(state, draftState => {
         for (const [index, group] of draftState.data.entries()) {
-          if(group.name === action.payload.data.group) {
-            console.log(draftState.data[index].linksCount)
+          if(group.name === action.payload.group) {
             draftState.data[index].linksCount = draftState.data[index].linksCount + 1;
           }
         }

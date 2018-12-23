@@ -1,8 +1,10 @@
 import * as React from "react";
 import styled from "styled-components";
 import { Link } from "@reach/router";
-
+import logo from "../shared/logo.png";
 const Container = styled.header`
+  width: 95%;
+  margin: 0 auto;
   min-height: 55px;
   display: flex;
   justify-content: space-between;
@@ -26,7 +28,9 @@ export class Header extends React.Component {
     return (
       <Container>
         <Link to="/">
-          <Logo>Logo</Logo>
+          <Logo>
+            <img src={logo} alt="Booky" />
+          </Logo>
         </Link>
         {this.props.children}
       </Container>

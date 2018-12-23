@@ -14,7 +14,7 @@ const AddLinkSchema = Yup.object().shape({
 });
 
 interface Props {
-  addLink: (url: string) => void;
+  addLink: (link: Link) => void;
   [type: string]: any;
 }
 
@@ -33,8 +33,6 @@ const Component = (props: Props) => {
       initialValues={{ url: "" }}
       validationSchema={AddLinkSchema}
       onSubmit={async (values, { setSubmitting, resetForm }) => {
-        props.addLink(values.url);
-
         try {
           const response = await fetchWithAuth({
             url: `${API_URL}/links`,
@@ -44,14 +42,13 @@ const Component = (props: Props) => {
             }
           });
           const link: Link = response.data;
-          props.addLink(values.url);
+          props.addLink(link);
           resetForm();
         } catch (err) {
-          setSnackbar({open: true, message: err.message});
+          setSnackbar({ open: true, message: err.message });
         }
 
         setSubmitting(false);
-        console.log(values.url);
       }}
     >
       {({

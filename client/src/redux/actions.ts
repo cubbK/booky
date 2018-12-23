@@ -8,6 +8,7 @@ import {
 } from "./actionTypes";
 import { API_URL } from "../constants";
 import { fetchWithAuth } from "../helpers/fetchWithAuth";
+import { Link } from "./reducers/linksReducer";
 
 export function setJwt(jwt: string) {
   return {
@@ -39,15 +40,9 @@ export function fetchLinks(group: string) {
   };
 }
 
-export function addLink(url: string) {
+export function addLink(link: Link) {
   return {
     type: ADD_LINK,
-    payload: fetchWithAuth({
-      url: `${API_URL}/links`,
-      method: "POST",
-      data: {
-        url
-      }
-    })
+    payload: link
   };
 }

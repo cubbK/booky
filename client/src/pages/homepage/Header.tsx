@@ -2,7 +2,7 @@ import * as React from "react";
 import styled from "styled-components";
 import { Layout } from "../../components/Layout";
 import { Link } from "@reach/router";
-import logo from "./logo.svg";
+import logo from "../../shared/logo.png";
 import mountains from "./mountains-header.png";
 import phoneTop from "./phoneTop.png";
 import { GoogleButtonContainer } from "./GoogleButtonContainer";
