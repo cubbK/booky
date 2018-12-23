@@ -14,6 +14,7 @@
     "@types/react-dom": "^16.0.9",
     "@types/react-redux": "^6.0.11",
     "@types/styled-components": "^4.1.0",
+    "@types/yup": "^0.26.3",
     "axios": "^0.18.0",
     "create-react-app": "^2.1.1",
     "formik": "^1.4.1",
@@ -33,7 +34,8 @@
     "redux-promise-middleware": "^5.1.1",
     "redux-thunk": "^2.3.0",
     "reselect": "^4.0.0",
-    "styled-components": "^4.1.1"
+    "styled-components": "^4.1.1",
+    "yup": "^0.26.6"
   },
   "scripts": {
     "start": "react-scripts start",

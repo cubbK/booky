@@ -2,6 +2,8 @@ import * as React from "react";
 import { FormField } from "./form/FormField";
 import { FormButton } from "./form/FormButton";
 import styled from "styled-components";
+import { FormError } from "./form/FormError";
+import { FormErrorContainer } from "./form/FormErrorContainer";
 
 const ContainerForm = styled.form`
   && {
@@ -34,6 +36,8 @@ interface Props {
 }
 
 export class Form extends React.Component<Props> {
+  static Error = FormError;
+  static ErrorContainer = FormErrorContainer;
   static Field = FormFieldStyled;
   static Button = FormButtonStyled;
 

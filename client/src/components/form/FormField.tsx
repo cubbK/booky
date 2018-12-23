@@ -7,6 +7,7 @@ interface Props {
   onChange: (e: any) => void;
   onBlur: (e: any) => void;
   value: any;
+  error: boolean;
   [type: string] : any;
 }
 

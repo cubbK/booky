@@ -1,4 +1,10 @@
-import { PENDING, FULFILLED, REJECTED, FETCH_LINKS } from "../actionTypes";
+import {
+  PENDING,
+  FULFILLED,
+  REJECTED,
+  FETCH_LINKS,
+  ADD_LINK
+} from "../actionTypes";
 import produce from "immer";
 import { uniqWith, isEqual } from "lodash";
 
@@ -32,15 +38,16 @@ export function linksReducer(state = defaultState, action: any) {
       return produce(state, draftState => {
         draftState.loading = false;
         const dataWithDuplicates = [...draftState.data, ...action.payload.data];
-        const dataWithoutDuplicates = uniqWith(dataWithDuplicates, isEqual)
+        const dataWithoutDuplicates = uniqWith(dataWithDuplicates, isEqual);
         draftState.data = dataWithoutDuplicates;
         draftState.error = null;
       });
-    case FETCH_LINKS + REJECTED: 
+    case FETCH_LINKS + REJECTED:
       return produce(state, draftState => {
         draftState.loading = false;
         draftState.error = action.payload;
       });
+
     default:
       return state;
   }

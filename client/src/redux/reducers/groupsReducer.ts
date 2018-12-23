@@ -1,4 +1,10 @@
-import { FETCH_GROUPS, PENDING, FULFILLED, REJECTED } from "../actionTypes";
+import {
+  FETCH_GROUPS,
+  PENDING,
+  FULFILLED,
+  REJECTED,
+  ADD_LINK
+} from "../actionTypes";
 import produce from "immer";
 
 export interface Group {
@@ -30,10 +36,20 @@ export function groupsReducer(state = defaultState, action: any) {
         draftState.loading = false;
         draftState.data = action.payload.data;
       });
-    case FETCH_GROUPS + REJECTED: 
+    case FETCH_GROUPS + REJECTED:
       return produce(state, draftState => {
         draftState.loading = false;
         draftState.error = action.payload;
+      });
+    case ADD_LINK + FULFILLED:
+      console.log(action.payload)
+      return produce(state, draftState => {
+        for (const [index, group] of draftState.data.entries()) {
+          if(group.name === action.payload.data.group) {
+            console.log(draftState.data[index].linksCount)
+            draftState.data[index].linksCount = draftState.data[index].linksCount + 1;
+          }
+        }
       });
     default:
       return state;
