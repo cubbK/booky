@@ -21,16 +21,16 @@ const Container = styled.header`
   }
 `;
 
-const Logo = styled.div``;
+const Logo = styled.img`
+  margin-top: 5px;
+`;
 
 export class Header extends React.Component {
   render() {
     return (
       <Container>
         <Link to="/">
-          <Logo>
-            <img src={logo} alt="Booky" />
-          </Logo>
+          <Logo src={logo} alt="Booky" />
         </Link>
         {this.props.children}
       </Container>

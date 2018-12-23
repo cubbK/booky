@@ -27,10 +27,10 @@ const Title = styled.h1`
   font-family: ${props => props.theme.titleFamilyFont};
   font-weight: 300;
   font-size: 62px;
-  margin: 65px 0 20px;
+  margin: 120px 0 20px;
   text-align: center;
   @media (max-width: 450px) {
-    margin: 20px 0 20px;
+    margin: 40px 0 20px;
   }
 `;
 
@@ -74,15 +74,6 @@ export class Header extends React.Component {
     return (
       <header>
         <Layout>
-          <Nav>
-            <Link to="/">
-              <LogoContainer>
-                <img src={logo} alt="Booky" />
-              </LogoContainer>
-            </Link>
-
-            <div>Sign In</div>
-          </Nav>
           <Title>Booky</Title>
           <Subtitle>The place to store your bookmarks</Subtitle>
         </Layout>
