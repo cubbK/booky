@@ -1,9 +1,10 @@
 import * as React from "react";
-import { Formik, FormikProps, Form, Field, FieldProps } from "formik";
+import { Formik } from "formik";
 import { fetchWithAuth } from "../../helpers/fetchWithAuth";
 import { API_URL } from "../../constants";
 import { connect } from "react-redux";
-
+import { TextField } from "@material-ui/core";
+import { Form } from "../../components/Form";
 
 export const AddLinkForm = (props: any) => {
   return (
@@ -32,19 +33,18 @@ export const AddLinkForm = (props: any) => {
         isSubmitting
         /* and other goodies */
       }) => (
-        <form onSubmit={handleSubmit}>
-          <input
+        <Form>
+          <Form.Field
             type="text"
             name="link"
             onChange={handleChange}
             onBlur={handleBlur}
             value={values.link}
+            label="Add link"
           />
           {errors.link && touched.link && errors.link}
-          <button type="submit" disabled={isSubmitting}>
-            Submit
-          </button>
-        </form>
+          <Form.Button disabled={isSubmitting}>Add</Form.Button>
+        </Form>
       )}
     </Formik>
   );

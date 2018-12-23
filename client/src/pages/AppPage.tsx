@@ -2,7 +2,7 @@ import * as React from "react";
 import { Footer } from "../components/Footer";
 import { GroupsList } from "./apppage/GroupsList";
 import { AppHeader } from "./apppage/AppHeader";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { Router, navigate } from "@reach/router";
 import { LinksList } from "./apppage/LinksList";
 import { connect } from "react-redux";
@@ -14,6 +14,10 @@ const Container = styled.div`
   display: grid;
   grid-template-rows: auto 1fr auto;
 `;
+
+const RouterFullHeight = styled(Router)`
+  min-height: 100%;
+`
 
 interface Props {
   [type: string]: any;
@@ -36,10 +40,10 @@ export const AppPage = connect(
     <Container>
       <AppHeader />
       <main>
-        <Router>
+        <RouterFullHeight>
             <GroupsList path="/" />
             <LinksList path="group/:group" />
-        </Router>
+        </RouterFullHeight>
       </main>
       <Footer />
     </Container>
