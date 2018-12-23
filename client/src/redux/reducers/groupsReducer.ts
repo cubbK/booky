@@ -42,12 +42,24 @@ export function groupsReducer(state = defaultState, action: any) {
         draftState.error = action.payload;
       });
     case ADD_LINK:
-      console.log(action.payload)
+      console.log(action.payload);
       return produce(state, draftState => {
+        let encounteredGroup = false;
         for (const [index, group] of draftState.data.entries()) {
-          if(group.name === action.payload.group) {
-            draftState.data[index].linksCount = draftState.data[index].linksCount + 1;
+          if (group.name === action.payload.group) {
+            draftState.data[index].linksCount =
+              draftState.data[index].linksCount + 1;
+            encounteredGroup = true;
           }
+        }
+        //if not group present with this
+        // name create a new one and set id = -1 to not conflict with other groups
+        if (!encounteredGroup) {
+          draftState.data.push({
+            id: -1,
+            name: action.payload.group,
+            linksCount: 1
+          });
         }
       });
     default:
