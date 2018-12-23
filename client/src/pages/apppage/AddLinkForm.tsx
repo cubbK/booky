@@ -45,7 +45,7 @@ const Component = (props: Props) => {
           props.addLink(link);
           resetForm();
         } catch (err) {
-          setSnackbar({ open: true, message: err.message });
+          setSnackbar({ open: true, message: err.response.data.message });
         }
 
         setSubmitting(false);

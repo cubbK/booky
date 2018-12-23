@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { LinkDto } from './link.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Link } from './link.entity';
@@ -20,6 +20,12 @@ export class LinksService {
     const user = await this.usersRepository.findOne(userId);
     const pageInfo = await getPageInfo(data.url);
 
+    const linkExists = await this.doesLinkExist(data.url, user);
+
+    if (linkExists) {
+      throw new HttpException('Duplicate link', HttpStatus.NOT_ACCEPTABLE);
+    }
+
     const link = new Link();
     link.url = data.url;
     link.user = user;
@@ -27,6 +33,16 @@ export class LinksService {
     link.title = pageInfo.title;
 
     return await this.linkRepository.save(link);
+  }
+
+  async doesLinkExist(url: string, user: User) {
+    const links = await this.linkRepository.find({ user });
+    for (const link of links) {
+      if (link.url === url) {
+        return true;
+      }
+    }
+    return false;
   }
 
   async favoriteLink(toFavorite: boolean, linkId: number) {
