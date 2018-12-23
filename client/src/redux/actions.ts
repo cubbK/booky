@@ -1,5 +1,11 @@
 import axios from "axios";
-import { SET_JWT, REFRESH_JWT, FETCH_GROUPS, FETCH_LINKS } from "./actionTypes";
+import {
+  SET_JWT,
+  REFRESH_JWT,
+  FETCH_GROUPS,
+  FETCH_LINKS,
+  ADD_LINK
+} from "./actionTypes";
 import { API_URL } from "../constants";
 import { fetchWithAuth } from "../helpers/fetchWithAuth";
 
@@ -19,16 +25,29 @@ export function refreshJWT(jwt: string | null) {
   };
 }
 
-export function fetchGroups () {
+export function fetchGroups() {
   return {
     type: FETCH_GROUPS,
-    payload: fetchWithAuth({url: `${API_URL}/links/groups`})
-  }
+    payload: fetchWithAuth({ url: `${API_URL}/links/groups` })
+  };
 }
 
 export function fetchLinks(group: string) {
   return {
     type: FETCH_LINKS,
-    payload: fetchWithAuth({url: `${API_URL}/links/group/${group}`})
-  }
+    payload: fetchWithAuth({ url: `${API_URL}/links/group/${group}` })
+  };
+}
+
+export function addLink(url: string) {
+  return {
+    type: ADD_LINK,
+    payload: fetchWithAuth({
+      url: `${API_URL}/links`,
+      method: "POST",
+      data: {
+        url
+      }
+    })
+  };
 }

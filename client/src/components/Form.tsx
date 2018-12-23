@@ -29,7 +29,11 @@ const FormButtonStyled = styled(FormButton)`
   }
 `;
 
-export class Form extends React.Component {
+interface Props {
+  onSubmit: () => void;
+}
+
+export class Form extends React.Component<Props> {
   static Field = FormFieldStyled;
   static Button = FormButtonStyled;
 

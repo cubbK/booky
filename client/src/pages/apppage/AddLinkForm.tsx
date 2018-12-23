@@ -5,22 +5,23 @@ import { API_URL } from "../../constants";
 import { connect } from "react-redux";
 import { TextField } from "@material-ui/core";
 import { Form } from "../../components/Form";
+import { addLink } from "../../redux/actions";
 
-export const AddLinkForm = (props: any) => {
+interface Props {
+  addLink: (url: string) => void;
+  [type: string]: any;
+}
+
+const Component = (props: Props) => {
   return (
     <Formik
-      initialValues={{ link: "" }}
+      initialValues={{ url: "" }}
       onSubmit={async (values, { setSubmitting, resetForm }) => {
-        const response = await fetchWithAuth({
-          method: "POST",
-          url: `${API_URL}/links`,
-          data: {
-            url: values.link
-          }
-        });
-        props.setNewLink(response.data);
+        props.addLink(values.url)
+
         resetForm();
         setSubmitting(false);
+        console.log(values.url)
       }}
     >
       {({
@@ -33,19 +34,24 @@ export const AddLinkForm = (props: any) => {
         isSubmitting
         /* and other goodies */
       }) => (
-        <Form>
+        <Form onSubmit={handleSubmit}>
           <Form.Field
             type="text"
-            name="link"
+            name="url"
             onChange={handleChange}
             onBlur={handleBlur}
-            value={values.link}
-            label="Add link"
+            value={values.url}
+            label="Add url"
           />
-          {errors.link && touched.link && errors.link}
+          {errors.url && touched.url && errors.url}
           <Form.Button disabled={isSubmitting}>Add</Form.Button>
         </Form>
       )}
     </Formik>
   );
 };
+
+export const AddLinkForm = connect(
+  null,
+  { addLink }
+)(Component);
