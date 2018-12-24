@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Formik } from "formik";
+import { Formik, FormikValues } from "formik";
 import { fetchWithAuth } from "../../helpers/fetchWithAuth";
 import { API_URL } from "../../constants";
 import { connect } from "react-redux";
@@ -70,7 +70,6 @@ const Component = (props: Props) => {
               onBlur={handleBlur}
               value={values.url}
               label={"Add url"}
-              error={errors.url && touched.url}
             />
             <Form.Button disabled={isSubmitting}>Add</Form.Button>
           </Form>

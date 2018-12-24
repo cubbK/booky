@@ -9,6 +9,7 @@ import { fetchGroups } from "../../redux/actions";
 import produce from "immer";
 import { sortBy } from "lodash";
 import { Divider } from "@material-ui/core";
+import { NumberIndicator } from "./groupsList/NumberIndicator";
 
 interface Props {
   groups: Groups;
@@ -46,9 +47,9 @@ function mapListItems(groups: Array<Group>) {
   return groups.map((group, id) => (
     <Link to={`/group/${group.name}`} key={id}>
       <List.Item button={true}>
-        {group.name}({group.linksCount})
+        <div>{group.name}</div>
+        <NumberIndicator>{group.linksCount}</NumberIndicator>
       </List.Item>
-      <Divider />
     </Link>
   ));
 }

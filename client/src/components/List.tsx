@@ -28,7 +28,7 @@ export class List extends React.Component {
   render() {
     return (
       <PaperFixedWidth {...this.props}>
-        <MaterialList>{this.props.children}</MaterialList>
+        {this.props.children}
       </PaperFixedWidth>
     );
   }

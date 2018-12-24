@@ -2,7 +2,7 @@ import * as React from "react";
 import { ThemeProvider } from "styled-components";
 
 export interface Theme {
-  main: "#222";
+  primary: string;
 }
 
 const defaultTheme = {};

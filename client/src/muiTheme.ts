@@ -3,7 +3,18 @@ import { createMuiTheme } from '@material-ui/core/styles';
 export const muiTheme = createMuiTheme({
   palette: {
     primary: {
-      main: "#36453B"
+      main: "#1C77C3"
     },
   },
 });
+
+
+export interface Theme {
+  titleFamilyFont: string;
+  primary: string;
+}
+
+export const styledTheme: Theme = {
+  titleFamilyFont: "'Varela Round', sans-serif",
+  primary: "#1C77C3"
+};

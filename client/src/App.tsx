@@ -13,7 +13,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import { withRefreshJwt } from "./hocs/withRefreshJwt";
 import { compose } from "redux";
 import { MuiThemeProvider } from "@material-ui/core";
-import { muiTheme } from "./muiTheme";
+import { muiTheme, styledTheme } from "./muiTheme";
 
 function App() {
   return (
@@ -33,14 +33,6 @@ function App() {
   );
 }
 
-export interface Theme {
-  titleFamilyFont: string;
-  main: string;
-}
 
-export const theme: Theme = {
-  titleFamilyFont: "'Varela Round', sans-serif",
-  main: "#267df4"
-};
 
-export default compose(withStyledComponentsTheme(theme))(App);
+export default compose(withStyledComponentsTheme(styledTheme))(App);
