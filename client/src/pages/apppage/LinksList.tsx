@@ -7,6 +7,7 @@ import { Links, Link as ILink } from "../../redux/reducers/linksReducer";
 import { filterLinksByGroupSelector } from "../../redux/selectors/filterLinksByGroupSelector";
 import produce from "immer";
 import { BackButton } from "./linksList/BackButton";
+import { LinkListItem } from "./linksList/LinkListItem";
 
 interface Props {
   links: Links;
@@ -37,11 +38,7 @@ export const LinksList = connect(
 
 function mapListItems(links: Array<ILink>) {
   return links.map((link, id) => (
-    <List.Item key={link.id}>
-      <a href={link.url} target="_blank">
-        {link.url}
-      </a>
-    </List.Item>
+    <LinkListItem key={link.id} primary={link.title} secondary={link.url} />
   ));
 }
 

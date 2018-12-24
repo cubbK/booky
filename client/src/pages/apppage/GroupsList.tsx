@@ -10,6 +10,7 @@ import produce from "immer";
 import { sortBy } from "lodash";
 import { Divider } from "@material-ui/core";
 import { NumberIndicator } from "./groupsList/NumberIndicator";
+import { GroupName } from "./groupsList/GroupName";
 
 interface Props {
   groups: Groups;
@@ -47,7 +48,7 @@ function mapListItems(groups: Array<Group>) {
   return groups.map((group, id) => (
     <Link to={`/group/${group.name}`} key={id}>
       <List.Item button={true}>
-        <div>{group.name}</div>
+        <GroupName>{group.name}</GroupName>
         <NumberIndicator>{group.linksCount}</NumberIndicator>
       </List.Item>
     </Link>
