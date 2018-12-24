@@ -6,6 +6,8 @@ import { CombinedReducers } from "../../redux/reducers";
 import { AddLinkForm } from "./AddLinkForm";
 import { Group, Groups } from "../../redux/reducers/groupsReducer";
 import { fetchGroups } from "../../redux/actions";
+import produce from "immer";
+import { sortBy } from "lodash";
 
 interface Props {
   groups: Groups;
@@ -18,7 +20,6 @@ export const GroupsList = connect(
   { fetchGroups }
 )((props: Props) => {
   React.useEffect(() => {
-    console.log(123);
     props.fetchGroups();
   }, []);
 
@@ -52,6 +53,13 @@ function mapListItems(groups: Array<Group>) {
 
 function mapStateToProps(state: CombinedReducers) {
   return {
-    groups: state.groups
+    groups: sortAsc(state.groups)
   };
+}
+
+function sortAsc(groups: Groups) {
+  return produce(groups, draftGroups => {
+    const sortedData = sortBy(draftGroups.data, ["name"]);
+    draftGroups.data = sortedData;
+  });
 }
