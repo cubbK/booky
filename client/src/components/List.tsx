@@ -9,6 +9,7 @@ interface Props {
 
 const PaperFixedWidth = styled(Paper)`
   && {
+    max-width: 100vw;
     width: 920px;
     margin: 0 auto;
     min-height: 100%;

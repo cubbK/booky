@@ -16,6 +16,11 @@ const Link = styled.a`
   }
 `;
 
+const Title = styled.div`
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+`
+
 interface Props {
   primary: any;
   secondary: any;
@@ -24,7 +29,7 @@ interface Props {
 export const LinkListItem = (props: Props) => (
   <List.Item>
     <ListItemText
-      primary={props.primary}
+      primary={<Title>{props.primary}</Title>}
       secondary={
         <Link href={props.secondary} target="_blank">
           {props.secondary}
