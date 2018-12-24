@@ -1,17 +1,18 @@
 import * as React from "react";
-import { ListItemIcon, ListItemText } from "@material-ui/core";
-import { Inbox as InboxIcon } from "@material-ui/icons";
+import { ListItem as ListItemComponent, Divider } from "@material-ui/core";
+import { Theme } from "../../hocs/withStyledComponentsTheme";
+import styled from "styled-components";
+
 
 interface Props {
-  onClick?: () => any;
   [type: string]: any;
 }
 
+
+
 export const ListItem = (props: Props) => (
-  <ListItem onClick={props.onClick} {...props}>
-    <ListItemIcon>
-      <InboxIcon />
-    </ListItemIcon>
-    <ListItemText primary="Inbox" />
-  </ListItem>
+  <ListItemComponent button={true} {...props}>
+    {props.children}
+    <Divider />
+  </ListItemComponent>
 );

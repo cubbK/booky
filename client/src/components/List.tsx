@@ -1,7 +1,7 @@
 import * as React from "react";
-import { Paper, ListItem } from "@material-ui/core";
+import { Paper, List as MaterialList } from "@material-ui/core";
 import styled from "styled-components";
-
+import { ListItem } from "./list/ListItem";
 
 interface Props {
   [type: string]: any;
@@ -15,6 +15,10 @@ const PaperFixedWidth = styled(Paper)`
     @media (max-width: 1200px) {
       width: 90%;
     }
+    a {
+      text-decoration: none;
+      color: #222;
+    }
   }
 ` as any;
 
@@ -23,7 +27,9 @@ export class List extends React.Component {
 
   render() {
     return (
-      <PaperFixedWidth {...this.props}>{this.props.children}</PaperFixedWidth>
+      <PaperFixedWidth {...this.props}>
+        <MaterialList>{this.props.children}</MaterialList>
+      </PaperFixedWidth>
     );
   }
 }

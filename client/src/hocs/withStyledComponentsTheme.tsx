@@ -1,7 +1,7 @@
 import * as React from "react";
 import { ThemeProvider } from "styled-components";
 
-export interface theme {
+export interface Theme {
   main: "#222";
 }
 

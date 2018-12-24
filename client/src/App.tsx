@@ -12,17 +12,21 @@ import { store, persistor } from "./redux/store";
 import { PersistGate } from "redux-persist/integration/react";
 import { withRefreshJwt } from "./hocs/withRefreshJwt";
 import { compose } from "redux";
+import { MuiThemeProvider } from "@material-ui/core";
+import { muiTheme } from "./muiTheme";
 
 function App() {
   return (
     <div className="App">
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
-          <Router>
-            <HomePage path="/landing" />
-            <AppPage path="/*" />
-            <LoginPage path="/login/:status/:jwt" />
-          </Router>
+          <MuiThemeProvider theme={muiTheme}>
+            <Router>
+              <HomePage path="/landing" />
+              <AppPage path="/*" />
+              <LoginPage path="/login/:status/:jwt" />
+            </Router>
+          </MuiThemeProvider>
         </PersistGate>
       </Provider>
     </div>
