@@ -10,7 +10,7 @@ const defaultTheme = {};
 export const withStyledComponentsTheme = (theme = defaultTheme) => <
   P extends object
 >(
-  WrappedComponent: React.ComponentType<P>
+  WrappedComponent: any
 ) => {
   return class extends React.Component {
     render() {

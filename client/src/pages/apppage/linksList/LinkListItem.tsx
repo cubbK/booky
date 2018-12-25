@@ -24,10 +24,12 @@ const Title = styled.div`
 interface Props {
   primary: any;
   secondary: any;
+  onClick: any;
+  [type: string] : any;
 }
 
 export const LinkListItem = (props: Props) => (
-  <List.Item>
+  <List.Item onClick={props.onClick}>
     <ListItemText
       primary={<Title>{props.primary}</Title>}
       secondary={
