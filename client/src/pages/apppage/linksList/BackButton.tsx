@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Link } from "@reach/router";
 import { Fab } from "@material-ui/core";
-import backIcon from "./iconmonstr-arrow-72.svg";
+import backIcon from "./images/iconmonstr-arrow-72.svg";
 import { Layout } from "../../../components/Layout";
 import styled from "styled-components";
 

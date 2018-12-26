@@ -14,6 +14,7 @@ import { withRefreshJwt } from "./hocs/withRefreshJwt";
 import { compose } from "redux";
 import { MuiThemeProvider } from "@material-ui/core";
 import { muiTheme, styledTheme } from "./muiTheme";
+import CssBaseline from '@material-ui/core/CssBaseline';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
           <MuiThemeProvider theme={muiTheme}>
+            <CssBaseline />
             <Router>
               <HomePage path="/landing" />
               <AppPage path="/*" />
