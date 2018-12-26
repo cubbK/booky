@@ -6,7 +6,10 @@ import { darken } from "polished";
 
 const Link = styled.a`
   && {
+    display: block;
     color: ${props => props.theme.primary} !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
     :hover,
     :active,
     :focus {
