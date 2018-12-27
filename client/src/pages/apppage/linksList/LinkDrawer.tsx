@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Drawer } from "@material-ui/core";
+import { Drawer, Paper } from "@material-ui/core";
 import { Link } from "../../../redux/reducers/linksReducer";
 import styled from "styled-components";
 import closeIcon from "./images/iconmonstr-x-mark-2.svg";
@@ -19,10 +19,24 @@ const CloseBtn = styled.div`
   height: 20px;
   cursor: pointer;
   img {
-    width:100%;
+    width: 100%;
     height: 100%;
   }
 `;
+
+const CardsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  & > * {
+    margin: 10px 0;
+  }
+`;
+
+const InfoContainer = styled(Paper)`
+
+` as any;
+
+const ActionsContainer = styled(Paper)`` as any;
 
 interface Props {
   open: boolean;
@@ -48,7 +62,10 @@ export const LinkDrawer = (props: Props) => {
         >
           <img src={closeIcon} alt="X" />
         </CloseBtn>
-        {props.children}
+        <CardsContainer>
+          <InfoContainer>123</InfoContainer>
+          <ActionsContainer>actions</ActionsContainer>
+        </CardsContainer>
       </Container>
     </Drawer>
   );

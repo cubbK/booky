@@ -27,10 +27,11 @@ const Title = styled.h1`
   font-family: ${props => props.theme.titleFamilyFont};
   font-weight: 300;
   font-size: 62px;
-  margin: 120px 0 20px;
+  padding: 120px 0 20px;
+  margin: 0;
   text-align: center;
   @media (max-width: 450px) {
-    margin: 40px 0 20px;
+    padding: 40px 0 20px;
   }
 `;
 
