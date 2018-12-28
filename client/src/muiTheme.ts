@@ -1,13 +1,15 @@
-import { createMuiTheme } from '@material-ui/core/styles';
+import { createMuiTheme } from "@material-ui/core/styles";
 
 export const muiTheme = createMuiTheme({
   palette: {
     primary: {
       main: "#1C77C3"
-    },
+    }
   },
+  typography: {
+    useNextVariants: true
+  }
 });
-
 
 export interface Theme {
   titleFamilyFont: string;

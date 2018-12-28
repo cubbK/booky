@@ -43,11 +43,9 @@ export const LinkListItem = (props: Props) => (
     <ListItemText
       primary={<Title>{props.primary}</Title>}
       secondary={
-        <div>
           <Link href={props.secondary} target="_blank">
             {props.secondary}
           </Link>
-        </div>
       }
     />
     123

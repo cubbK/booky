@@ -1,15 +1,17 @@
 import * as React from "react";
-import { Drawer, Paper } from "@material-ui/core";
+import { Drawer, Paper, Typography, Button } from "@material-ui/core";
 import { Link } from "../../../redux/reducers/linksReducer";
 import styled from "styled-components";
 import closeIcon from "./images/iconmonstr-x-mark-2.svg";
+import favoriteIcon from "./images/iconmonstr-star-2.svg";
+import deleteIcon from "./images/iconmonstr-trash-can-2.svg";
 
 const Container = styled.div`
   box-sizing: border-box;
   width: 300px;
-  padding: 10px 5px;
   background-color: #f8f8f8;
   min-height: 100%;
+  padding: 10px;
 `;
 
 const CloseBtn = styled.div`
@@ -33,10 +35,48 @@ const CardsContainer = styled.div`
 `;
 
 const InfoContainer = styled(Paper)`
-
+  padding: 25px 20px;
 ` as any;
 
 const ActionsContainer = styled(Paper)`` as any;
+
+const Title = styled(Typography)`
+  && {
+    line-height: 1.3;
+    margin-bottom: 15px;
+  }
+` as any;
+
+const Href = styled.a`
+  text-decoration: none;
+  color: #1c77c3 !important;
+  word-break: break-all;
+  :hover,
+  :active,
+  :focus {
+    text-decoration: underline;
+  }
+`;
+
+const Icon = styled.img`
+  margin-right: 20px;
+  width: 15px;
+`;
+
+const ActionButton = styled(Button)`
+  && {
+    padding: 15px 20px;
+    position: relative;
+    justify-content: flex-start;
+  }
+` as any;
+
+const ActionDelimiter = styled.div`
+  width: 80%;
+  margin: 0 0 0 auto;
+  height: 2px;
+  background-color: rgba(0, 0, 0, 0.12);
+`;
 
 interface Props {
   open: boolean;
@@ -46,7 +86,6 @@ interface Props {
 }
 
 export const LinkDrawer = (props: Props) => {
-  console.log(props.link);
   return (
     <Drawer
       anchor="right"
@@ -63,8 +102,23 @@ export const LinkDrawer = (props: Props) => {
           <img src={closeIcon} alt="X" />
         </CloseBtn>
         <CardsContainer>
-          <InfoContainer>123</InfoContainer>
-          <ActionsContainer>actions</ActionsContainer>
+          <InfoContainer>
+            <Title variant="h6">{props.link && props.link.title}</Title>
+            <Href href={(props.link && props.link.url) || ""} target="_blank">
+              {props.link && props.link.url}
+            </Href>
+          </InfoContainer>
+          <ActionsContainer>
+            <ActionButton fullWidth={true} size="large">
+              <Icon src={favoriteIcon} alt="Favorite" />
+              Favorite
+            </ActionButton>
+            <ActionDelimiter />
+            <ActionButton fullWidth={true} size="large">
+              <Icon src={deleteIcon} alt="Delete" />
+              Delete
+            </ActionButton>
+          </ActionsContainer>
         </CardsContainer>
       </Container>
     </Drawer>
