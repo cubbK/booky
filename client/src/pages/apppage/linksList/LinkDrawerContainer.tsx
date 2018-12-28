@@ -1,6 +1,8 @@
 import * as React from "react";
 import { LinkDrawer } from "./LinkDrawer";
 import { Link } from "../../../redux/reducers/linksReducer";
+import { setFavoriteLink, deleteLink } from "../../../redux/actions";
+import { connect } from "react-redux";
 
 interface Props {
   open: boolean;
@@ -9,8 +11,28 @@ interface Props {
   [type: string]: any;
 }
 
-export const LinkDrawerContainer = (props: Props) => {
-  
+const Component = (props: Props) => {
+  const handleFavorite = () => {
+    props.setFavoriteLink(
+      props.link && props.link.id,
+      props.link && !props.link.isFavorite
+    );
+  };
 
-  return (<LinkDrawer {...props} />)
-}
+  const handleDelete = () => {
+    props.deleteLink(props.link && props.link.id);
+  };
+
+  return (
+    <LinkDrawer
+      {...props}
+      handleFavorite={handleFavorite}
+      handleDelete={handleDelete}
+    />
+  );
+};
+
+export const LinkDrawerContainer = connect(
+  null,
+  { setFavoriteLink, deleteLink }
+)(Component);

@@ -27,20 +27,21 @@ export const LinksList = connect(
 
   const [drawerState, setDrawerState] = React.useState({
     open: false,
-    link: null
+    linkId: -1 // ids don't consist of negative numbers,
+    // thus it's safe to assume than -1 would not match anything
   });
 
   const toggleDrawer = (toClose: boolean) => () => {
     setDrawerState({
       open: toClose,
-      link: null
+      linkId: -1
     });
   };
 
   const onItemClick = (link: Link) => () => {
     setDrawerState({
       open: true,
-      link: link as any
+      linkId: link.id
     });
   };
 
@@ -51,8 +52,18 @@ export const LinksList = connect(
         primary={link.title}
         secondary={link.url}
         onClick={onItemClick(link)}
+        isFavorite={link.isFavorite}
       />
     ));
+  }
+
+  function getSelectedLink () : Link | null {
+    for(const link of props.links.data) {
+      if (link.id === drawerState.linkId) {
+        return link
+      }
+    }
+    return null;  //if no link is found return null
   }
 
   if (props.links.error) {
@@ -64,7 +75,7 @@ export const LinksList = connect(
       <LinkDrawerContainer
         open={drawerState.open}
         toggleDrawer={toggleDrawer}
-        link={drawerState.link}
+        link={getSelectedLink()}
       />
       <BackButton />
       {props.loading ? "Loading" : null}

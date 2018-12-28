@@ -45,6 +45,7 @@ interface Props {
   primary: any;
   secondary: any;
   onClick: any;
+  isFavorite: boolean;
   [type: string]: any;
 }
 
@@ -58,6 +59,6 @@ export const LinkListItem = (props: Props) => (
         </Link>
       }
     />
-    <FavoriteIcon />
+    {props.isFavorite ? <FavoriteIcon /> : null}
   </List.Item>
 );

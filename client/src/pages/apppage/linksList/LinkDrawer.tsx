@@ -86,6 +86,8 @@ interface Props {
   open: boolean;
   toggleDrawer: any;
   link: Link | null;
+  handleFavorite: () => any;
+  handleDelete: () => any;
   [type: string]: any;
 }
 
@@ -113,9 +115,9 @@ export const LinkDrawer = (props: Props) => {
             </Href>
           </InfoContainer>
           <ActionsContainer>
-            <ActionButton fullWidth={true} size="large">
+            <ActionButton fullWidth={true} size="large" onClick={props.handleFavorite}>
               <Icon src={favoriteIcon} alt="Favorite" />
-              Favorite
+              {props.link && props.link.isFavorite ? "Unfavorite" : "Favorite"}
             </ActionButton>
             <ActionDelimiter />
             <ActionButton fullWidth={true} size="large">

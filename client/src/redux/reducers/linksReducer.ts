@@ -3,7 +3,8 @@ import {
   FULFILLED,
   REJECTED,
   FETCH_LINKS,
-  ADD_LINK
+  ADD_LINK,
+  SET_FAVORITE_LINK
 } from "../actionTypes";
 import produce from "immer";
 import { uniqWith, isEqual } from "lodash";
@@ -47,6 +48,16 @@ export function linksReducer(state = defaultState, action: any) {
         draftState.loading = false;
         draftState.error = action.payload;
       });
+
+    case SET_FAVORITE_LINK + FULFILLED : {
+      return produce(state, draftState => {
+        for(const [index, link] of draftState.data.entries()) {
+          if (link.id === action.payload.data.id) {
+            draftState.data[index].isFavorite = action.payload.data.isFavorite;
+          }
+        }
+      })
+    }
 
     default:
       return state;

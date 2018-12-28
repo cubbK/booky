@@ -4,7 +4,9 @@ import {
   REFRESH_JWT,
   FETCH_GROUPS,
   FETCH_LINKS,
-  ADD_LINK
+  ADD_LINK,
+  SET_FAVORITE_LINK,
+  DELETE_LINK
 } from "./actionTypes";
 import { API_URL } from "../constants";
 import { fetchWithAuth } from "../helpers/fetchWithAuth";
@@ -44,5 +46,28 @@ export function addLink(link: Link) {
   return {
     type: ADD_LINK,
     payload: link
+  };
+}
+
+export function setFavoriteLink(linkId: number, favoriteState: boolean) {
+  return {
+    type: SET_FAVORITE_LINK,
+    payload: fetchWithAuth({
+      url: `${API_URL}/links/favorite`,
+      data: {
+        toFavorite: favoriteState,
+        linkId
+      },
+      method: "PUT"
+    })
+  };
+}
+
+export function deleteLink(linkId: number) {
+  return {
+    type: DELETE_LINK,
+    payload: {
+      linkId
+    }
   };
 }
