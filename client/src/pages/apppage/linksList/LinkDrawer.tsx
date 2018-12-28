@@ -6,12 +6,13 @@ import closeIcon from "./images/iconmonstr-x-mark-2.svg";
 import favoriteIcon from "./images/iconmonstr-star-2.svg";
 import deleteIcon from "./images/iconmonstr-trash-can-2.svg";
 
+
 const Container = styled.div`
   box-sizing: border-box;
   width: 300px;
   background-color: #f8f8f8;
-  min-height: 100%;
   padding: 10px;
+  height: 100%;
 `;
 
 const CloseBtn = styled.div`
@@ -20,10 +21,8 @@ const CloseBtn = styled.div`
   width: 20px;
   height: 20px;
   cursor: pointer;
-  img {
-    width: 100%;
-    height: 100%;
-  }
+  mask: url(${closeIcon}) no-repeat center;
+  background-color: #fff;
 `;
 
 const CardsContainer = styled.div`
@@ -39,6 +38,11 @@ const InfoContainer = styled(Paper)`
 ` as any;
 
 const ActionsContainer = styled(Paper)`` as any;
+
+const TopBar = styled.div`
+  background-color: ${props => props.theme.primary};
+  padding: 13px 10px;
+`;
 
 const Title = styled(Typography)`
   && {
@@ -92,15 +96,15 @@ export const LinkDrawer = (props: Props) => {
       open={props.open}
       onClose={props.toggleDrawer(false)}
     >
-      <Container>
+      <TopBar>
         <CloseBtn
           tabIndex={0}
           role="button"
           onClick={props.toggleDrawer(false)}
           onKeyDown={props.toggleDrawer(false)}
-        >
-          <img src={closeIcon} alt="X" />
-        </CloseBtn>
+        />
+      </TopBar>
+      <Container>
         <CardsContainer>
           <InfoContainer>
             <Title variant="h6">{props.link && props.link.title}</Title>
