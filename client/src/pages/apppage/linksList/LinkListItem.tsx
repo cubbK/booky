@@ -3,12 +3,13 @@ import { List } from "../../../components/List";
 import { ListItemText } from "@material-ui/core";
 import styled from "styled-components";
 import { darken } from "polished";
+import favoriteIcon from "./images/iconmonstr-star-2.svg";
 
 const ListItemStyled = styled(List.Item)`
-  &&{
+  && {
     padding-right: 0;
   }
-`
+`;
 
 const Link = styled.a`
   && {
@@ -31,6 +32,15 @@ const Title = styled.div`
   text-overflow: ellipsis;
 `;
 
+const FavoriteIcon = styled.div`
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  mask: url(${favoriteIcon}) no-repeat center;
+  background-color: ${props => props.theme.primary};
+  mask-size: contain;
+`;
+
 interface Props {
   primary: any;
   secondary: any;
@@ -43,11 +53,11 @@ export const LinkListItem = (props: Props) => (
     <ListItemText
       primary={<Title>{props.primary}</Title>}
       secondary={
-          <Link href={props.secondary} target="_blank">
-            {props.secondary}
-          </Link>
+        <Link href={props.secondary} target="_blank">
+          {props.secondary}
+        </Link>
       }
     />
-    123
+    <FavoriteIcon />
   </List.Item>
 );

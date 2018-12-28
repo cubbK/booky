@@ -9,6 +9,7 @@ import produce from "immer";
 import { BackButton } from "./linksList/BackButton";
 import { LinkListItem } from "./linksList/LinkListItem";
 import { LinkDrawer } from "./linksList/LinkDrawer";
+import { LinkDrawerContainer } from "./linksList/LinkDrawerContainer";
 
 interface Props {
   links: Links;
@@ -60,7 +61,7 @@ export const LinksList = connect(
 
   return (
     <React.Fragment>
-      <LinkDrawer
+      <LinkDrawerContainer
         open={drawerState.open}
         toggleDrawer={toggleDrawer}
         link={drawerState.link}
