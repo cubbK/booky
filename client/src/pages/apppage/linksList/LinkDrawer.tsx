@@ -6,7 +6,6 @@ import closeIcon from "./images/iconmonstr-x-mark-2.svg";
 import favoriteIcon from "./images/iconmonstr-star-2.svg";
 import deleteIcon from "./images/iconmonstr-trash-can-2.svg";
 
-
 const Container = styled.div`
   box-sizing: border-box;
   width: 300px;
@@ -62,10 +61,16 @@ const Href = styled.a`
   }
 `;
 
-const Icon = styled.img`
+const Icon = styled.div<{ icon: string }>`
   margin-right: 20px;
   width: 15px;
-`;
+  height: 15px;
+  cursor: pointer;
+  mask: url(${props => props.icon}) no-repeat center;
+  mask-size: contain;
+  background-color: ${(props: any) =>
+    props.color === "primary" ? props.theme.primary : "#000"};
+` as any;
 
 const ActionButton = styled(Button)`
   && {
@@ -115,13 +120,21 @@ export const LinkDrawer = (props: Props) => {
             </Href>
           </InfoContainer>
           <ActionsContainer>
-            <ActionButton fullWidth={true} size="large" onClick={props.handleFavorite}>
-              <Icon src={favoriteIcon} alt="Favorite" />
+            <ActionButton
+              fullWidth={true}
+              size="large"
+              onClick={props.handleFavorite}
+              color={props.link && props.link.isFavorite ? "primary" : null}
+            >
+              <Icon
+                icon={favoriteIcon}
+                color={props.link && props.link.isFavorite ? "primary" : null}
+              />
               {props.link && props.link.isFavorite ? "Unfavorite" : "Favorite"}
             </ActionButton>
             <ActionDelimiter />
             <ActionButton fullWidth={true} size="large">
-              <Icon src={deleteIcon} alt="Delete" />
+              <Icon icon={deleteIcon} />
               Delete
             </ActionButton>
           </ActionsContainer>
