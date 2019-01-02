@@ -5,6 +5,7 @@ import styled from "styled-components";
 import closeIcon from "./images/iconmonstr-x-mark-2.svg";
 import favoriteIcon from "./images/iconmonstr-star-2.svg";
 import deleteIcon from "./images/iconmonstr-trash-can-2.svg";
+import { PopupAlert } from "../../../components/PopupAlert";
 
 const Container = styled.div`
   box-sizing: border-box;
@@ -89,7 +90,6 @@ const ActionDelimiter = styled.div`
 
 interface Props {
   open: boolean;
-  toggleDrawer: any;
   link: Link | null;
   handleFavorite: () => any;
   handleDelete: () => any;
@@ -97,6 +97,19 @@ interface Props {
 }
 
 export const LinkDrawer = (props: Props) => {
+  const [deleteAlertOpen, setDeleteAlertOpen] = React.useState(false);
+
+  const handleDeleteAlertOpen = (state: boolean) => () => {
+    setDeleteAlertOpen(state);
+  };
+
+  const handleFinalDelete = () => {
+    console.log(props.toggleDrawer)
+    props.toggleDrawer(false)();
+    setDeleteAlertOpen(false);
+    props.handleDelete();
+  };
+
   return (
     <Drawer
       anchor="right"
@@ -133,13 +146,30 @@ export const LinkDrawer = (props: Props) => {
               {props.link && props.link.isFavorite ? "Unfavorite" : "Favorite"}
             </ActionButton>
             <ActionDelimiter />
-            <ActionButton fullWidth={true} size="large">
+            <ActionButton
+              fullWidth={true}
+              size="large"
+              onClick={handleDeleteAlertOpen(true)}
+            >
               <Icon icon={deleteIcon} />
               Delete
             </ActionButton>
           </ActionsContainer>
         </CardsContainer>
       </Container>
+      <PopupAlert
+        open={deleteAlertOpen}
+        handleClose={handleDeleteAlertOpen(false)}
+        title="The link will be deleted forever"
+        description="You won't be able to undo this action"
+      >
+        <PopupAlert.Action onClick={handleDeleteAlertOpen(false)}>
+          Cancel
+        </PopupAlert.Action>
+        <PopupAlert.Action color="secondary" onClick={handleFinalDelete}>
+          Delete Link
+        </PopupAlert.Action>
+      </PopupAlert>
     </Drawer>
   );
 };

@@ -76,7 +76,7 @@ export class LinksController {
     );
 
     if (doesLinkBelongToUser) {
-      this.linksService.deleteLink(props.linkId);
+      return this.linksService.deleteLink(props.linkId);
     } else {
       throw new HttpException(
         'Forbidden, this link does not belong to this user',

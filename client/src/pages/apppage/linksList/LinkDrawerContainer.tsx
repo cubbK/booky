@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 
 interface Props {
   open: boolean;
-  toggleDrawer: any;
+  toggleDrawer: (state: boolean) => () => void;
   link: Link | null;
   [type: string]: any;
 }

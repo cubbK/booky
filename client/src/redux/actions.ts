@@ -66,8 +66,12 @@ export function setFavoriteLink(linkId: number, favoriteState: boolean) {
 export function deleteLink(linkId: number) {
   return {
     type: DELETE_LINK,
-    payload: {
-      linkId
-    }
+    payload: fetchWithAuth({
+      url: `${API_URL}/links`,
+      data: {
+        linkId: linkId
+      },
+      method: "DELETE"
+    })
   };
 }

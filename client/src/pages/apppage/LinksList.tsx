@@ -58,6 +58,7 @@ export const LinksList = connect(
   }
 
   function getSelectedLink () : Link | null {
+    console.log(drawerState)
     for(const link of props.links.data) {
       if (link.id === drawerState.linkId) {
         return link

@@ -56,6 +56,9 @@ export class LinksService {
 
   async deleteLink(linkId: number) {
     await this.linkRepository.delete(linkId);
+    return {
+      linkId,
+    };
   }
 
   async doesLinkBelongToUser(linkId: number, userId: number): Promise<boolean> {
