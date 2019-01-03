@@ -4,7 +4,7 @@ import { createStore, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import promiseMiddleware from "redux-promise-middleware";
 import { composeWithDevTools } from "redux-devtools-extension";
-import { loadingBarMiddleware } from 'react-redux-loading-bar'
+import { loadingBarMiddleware } from "react-redux-loading-bar";
 
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage"; // defaults to localStorage for web and AsyncStorage for react-native
@@ -19,11 +19,10 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, combinedReducers);
 
-
 export const store = createStore(
   persistedReducer,
   composeWithDevTools(
-    applyMiddleware(loadingBarMiddleware(), promiseMiddleware(), thunk)
+    applyMiddleware(promiseMiddleware(), thunk, loadingBarMiddleware())
   )
 );
 

@@ -2,7 +2,6 @@ import * as React from "react";
 import styled from "styled-components";
 import { Link } from "@reach/router";
 import logo from "../shared/logo.png";
-import LoadingBar from "react-redux-loading-bar";
 
 const Container = styled.header`
   width: 95%;
@@ -30,13 +29,14 @@ const Logo = styled.img`
 export class Header extends React.Component {
   render() {
     return (
-      <Container>
-        <LoadingBar />
-        <Link to="/">
-          <Logo src={logo} alt="Booky" />
-        </Link>
-        {this.props.children}
-      </Container>
+      <React.Fragment>
+        <Container>
+          <Link to="/">
+            <Logo src={logo} alt="Booky" />
+          </Link>
+          {this.props.children}
+        </Container>
+      </React.Fragment>
     );
   }
 }

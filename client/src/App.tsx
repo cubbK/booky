@@ -14,7 +14,8 @@ import { withRefreshJwt } from "./hocs/withRefreshJwt";
 import { compose } from "redux";
 import { MuiThemeProvider } from "@material-ui/core";
 import { muiTheme, styledTheme } from "./muiTheme";
-import CssBaseline from '@material-ui/core/CssBaseline';
+import CssBaseline from "@material-ui/core/CssBaseline";
+import LoadingBar from "react-redux-loading-bar";
 
 function App() {
   return (
@@ -23,6 +24,10 @@ function App() {
         <PersistGate loading={null} persistor={persistor}>
           <MuiThemeProvider theme={muiTheme}>
             <CssBaseline />
+            <LoadingBar
+              progressIncrease={10}
+              style={{ backgroundColor: "#1C77C3" }}
+            />
             <Router>
               <HomePage path="/landing" />
               <AppPage path="/*" />
@@ -34,7 +39,5 @@ function App() {
     </div>
   );
 }
-
-
 
 export default compose(withStyledComponentsTheme(styledTheme))(App);
