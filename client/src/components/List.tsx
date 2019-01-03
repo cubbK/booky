@@ -2,6 +2,7 @@ import * as React from "react";
 import { Paper, List as MaterialList } from "@material-ui/core";
 import styled from "styled-components";
 import { ListItem } from "./list/ListItem";
+import { ListLoading } from "./list/ListLoading";
 
 interface Props {
   [type: string]: any;
@@ -25,6 +26,7 @@ const PaperFixedWidth = styled(Paper)`
 
 export class List extends React.Component {
   static Item = ListItem;
+  static Loading = ListLoading;
 
   render() {
     return (

@@ -3,6 +3,7 @@ import { List } from "../../components/List";
 import { CombinedReducers } from "../../redux/reducers";
 import { fetchLinks } from "../../redux/actions";
 import { connect } from "react-redux";
+import { compose } from "redux";
 import { Links, Link as ILink, Link } from "../../redux/reducers/linksReducer";
 import { filterLinksByGroupSelector } from "../../redux/selectors/filterLinksByGroupSelector";
 import produce from "immer";
@@ -11,16 +12,14 @@ import { LinkListItem } from "./linksList/LinkListItem";
 import { LinkDrawer } from "./linksList/LinkDrawer";
 import { LinkDrawerContainer } from "./linksList/LinkDrawerContainer";
 
+
 interface Props {
   links: Links;
   fetchLinks: (group: string) => void;
   [type: string]: any;
 }
 
-export const LinksList = connect(
-  mapStateToProps,
-  { fetchLinks }
-)((props: Props) => {
+const Component = (props: Props) => {
   React.useEffect(() => {
     props.fetchLinks(props.group);
   }, []);
@@ -57,18 +56,27 @@ export const LinksList = connect(
     ));
   }
 
-  function getSelectedLink () : Link | null {
-    console.log(drawerState)
-    for(const link of props.links.data) {
+  function getSelectedLink(): Link | null {
+    console.log(drawerState);
+    for (const link of props.links.data) {
       if (link.id === drawerState.linkId) {
-        return link
+        return link;
       }
     }
-    return null;  //if no link is found return null
+    return null; //if no link is found return null
   }
 
   if (props.links.error) {
     return <div>Error</div>;
+  }
+
+  if (props.links.loading) {
+    return (
+      <React.Fragment>
+        <BackButton />
+        <List.Loading />
+      </React.Fragment>
+    );
   }
 
   return (
@@ -83,7 +91,14 @@ export const LinksList = connect(
       <List>{mapListItems(props.links.data)}</List>
     </React.Fragment>
   );
-});
+};
+
+export const LinksList = compose(
+  connect(
+    mapStateToProps,
+    { fetchLinks }
+  )
+)(Component);
 
 function mapStateToProps(state: CombinedReducers, props: any) {
   return {

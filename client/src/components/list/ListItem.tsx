@@ -4,6 +4,7 @@ import { Theme } from "../../hocs/withStyledComponentsTheme";
 import styled from "styled-components";
 
 interface Props {
+  button?: boolean;
   [type: string]: any;
 }
 
@@ -20,11 +21,13 @@ const FatDivider = styled(Divider)`
   }
 ` as any;
 
-export const ListItem = (props: Props) => (
+export const ListItem: React.StatelessComponent<Props> = (props: Props) => (
   <React.Fragment>
-    <ListItemComponentStyled button={true} {...props}>
+    <ListItemComponentStyled button={props.button} {...props}>
       {props.children}
     </ListItemComponentStyled>
     <FatDivider />
   </React.Fragment>
 );
+
+ListItem.defaultProps = { button: true };

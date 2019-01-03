@@ -104,7 +104,6 @@ export const LinkDrawer = (props: Props) => {
   };
 
   const handleFinalDelete = () => {
-    console.log(props.toggleDrawer)
     props.toggleDrawer(false)();
     setDeleteAlertOpen(false);
     props.handleDelete();
