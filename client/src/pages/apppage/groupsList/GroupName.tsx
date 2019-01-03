@@ -7,4 +7,4 @@ const Container = styled.div`
   max-width: 98%;
 `;
 
-export const GroupName = (props: any) => <Container>{props.children}</Container>
+export const GroupName = (props: any) => <Container {...props}>{props.children}</Container>

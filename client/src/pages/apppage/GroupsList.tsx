@@ -5,25 +5,30 @@ import { connect } from "react-redux";
 import { CombinedReducers } from "../../redux/reducers";
 import { AddLinkForm } from "./AddLinkForm";
 import { Group, Groups } from "../../redux/reducers/groupsReducer";
-import { fetchGroups } from "../../redux/actions";
+import { fetchGroups, fetchFavoriteLinksCount } from "../../redux/actions";
 import produce from "immer";
 import { sortBy } from "lodash";
 import { Divider } from "@material-ui/core";
 import { NumberIndicator } from "./groupsList/NumberIndicator";
 import { GroupName } from "./groupsList/GroupName";
+import { Count } from "../../redux/reducers/favoritesReducer";
+import { FavoriteItem } from "./groupsList/FavoriteItem";
 
 interface Props {
   groups: Groups;
+  favoriteLinksCount: Count;
   fetchGroups: () => void;
+  fetchFavoriteLinksCount: () => void;
   [type: string]: any;
 }
 
 export const GroupsList = connect(
   mapStateToProps,
-  { fetchGroups }
+  { fetchGroups, fetchFavoriteLinksCount }
 )((props: Props) => {
   React.useEffect(() => {
     props.fetchGroups();
+    props.fetchFavoriteLinksCount();
   }, []);
 
   if (props.groups.error) {
@@ -35,19 +40,22 @@ export const GroupsList = connect(
     );
   }
 
-  if(props.groups.data.length === 0 && props.groups.loading === true) {
+  if (props.groups.data.length === 0 && props.groups.loading === true) {
     return (
       <React.Fragment>
-      <AddLinkForm />
-      <List.Loading />
-    </React.Fragment>
-    )
+        <AddLinkForm />
+        <List.Loading />
+      </React.Fragment>
+    );
   }
 
   return (
     <React.Fragment>
       <AddLinkForm />
-      <List>{mapListItems(props.groups.data)}</List>
+      <List>
+        <FavoriteItem count={props.favoriteLinksCount} />
+        {mapListItems(props.groups.data)}
+      </List>
     </React.Fragment>
   );
 });
@@ -65,7 +73,8 @@ function mapListItems(groups: Array<Group>) {
 
 function mapStateToProps(state: CombinedReducers) {
   return {
-    groups: sortAsc(state.groups)
+    groups: sortAsc(state.groups),
+    favoriteLinksCount: state.favorites.count
   };
 }
 

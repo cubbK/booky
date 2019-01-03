@@ -5,6 +5,7 @@ export const FETCH_LINKS = "FETCH_LINKS";
 export const ADD_LINK = "ADD_LINK";
 export const SET_FAVORITE_LINK = "SET_FAVORITE_LINK";
 export const DELETE_LINK = "DELETE_LINK";
+export const FETCH_FAVORITE_LINKS_COUNT = "FETCH_FAVORITE_LINKS_COUNT";
 
 export const PENDING = "_PENDING";
 export const FULFILLED = "_FULFILLED";

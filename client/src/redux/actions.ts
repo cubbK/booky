@@ -6,7 +6,8 @@ import {
   FETCH_LINKS,
   ADD_LINK,
   SET_FAVORITE_LINK,
-  DELETE_LINK
+  DELETE_LINK,
+  FETCH_FAVORITE_LINKS_COUNT
 } from "./actionTypes";
 import { API_URL } from "../constants";
 import { fetchWithAuth } from "../helpers/fetchWithAuth";
@@ -72,6 +73,15 @@ export function deleteLink(linkId: number) {
         linkId: linkId
       },
       method: "DELETE"
+    })
+  };
+}
+
+export function fetchFavoriteLinksCount() {
+  return {
+    type: FETCH_FAVORITE_LINKS_COUNT,
+    payload: fetchWithAuth({
+      url: `${API_URL}/links/favorites/count`
     })
   };
 }
