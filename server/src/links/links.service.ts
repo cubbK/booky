@@ -117,6 +117,21 @@ export class LinksService {
     return count;
   }
 
+  async getFavorites(userId: number) {
+    const user = await this.usersRepository.findOne(userId);
+    const links = await this.linkRepository.find({ user });
+
+    const favorites: Array<Link> = [];
+
+    for (const link of links) {
+      if (link.isFavorite) {
+        favorites.push(link);
+      }
+    }
+
+    return favorites;
+  }
+
   async getLinksByGroupName(userId: number, groupName: string) {
     const user = await this.usersRepository.findOne(userId);
     const links = await this.linkRepository.find({ user, group: groupName });

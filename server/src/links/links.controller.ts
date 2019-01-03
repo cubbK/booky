@@ -43,6 +43,12 @@ export class LinksController {
     return this.linksService.getLinksByGroupName(userId, groupName);
   }
 
+  @Get('/favorites')
+  @UseGuards(AuthGuard('jwt'))
+  async getFavorites(@UserIdFromJwt() userId) {
+    return this.linksService.getFavorites(userId);
+  }
+
   @Get('/favorites/count')
   @UseGuards(AuthGuard('jwt'))
   async getFavoriteLinksCount(@UserIdFromJwt() userId) {
