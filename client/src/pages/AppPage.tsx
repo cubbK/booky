@@ -43,6 +43,7 @@ export const AppPage = connect(
         <RouterFullHeight>
             <GroupsList path="/" />
             <LinksList path="group/:group" />
+            <LinksList path="favorites" />
         </RouterFullHeight>
       </main>
       <Footer />

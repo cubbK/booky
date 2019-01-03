@@ -7,7 +7,8 @@ import {
   ADD_LINK,
   SET_FAVORITE_LINK,
   DELETE_LINK,
-  FETCH_FAVORITE_LINKS_COUNT
+  FETCH_FAVORITE_LINKS_COUNT,
+  FETCH_FAVORITES
 } from "./actionTypes";
 import { API_URL } from "../constants";
 import { fetchWithAuth } from "../helpers/fetchWithAuth";
@@ -82,6 +83,15 @@ export function fetchFavoriteLinksCount() {
     type: FETCH_FAVORITE_LINKS_COUNT,
     payload: fetchWithAuth({
       url: `${API_URL}/links/favorites/count`
+    })
+  };
+}
+
+export function fetchFavorites() {
+  return {
+    type: FETCH_FAVORITES,
+    payload: fetchWithAuth({
+      url: `${API_URL}/links/favorites`
     })
   };
 }

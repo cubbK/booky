@@ -3,7 +3,8 @@ import {
   FETCH_FAVORITE_LINKS_COUNT,
   PENDING,
   FULFILLED,
-  REJECTED
+  REJECTED,
+  FETCH_FAVORITES
 } from "../actionTypes";
 import produce from "immer";
 
@@ -48,6 +49,23 @@ export function favoritesReducer(state = defaultState, action: any) {
       return produce(state, draftState => {
         draftState.count.loading = false;
         draftState.count.error = action.payload;
+      });
+
+    case FETCH_FAVORITES + PENDING:
+      return produce(state, draftState => {
+        draftState.links.loading = true;
+      });
+
+    case FETCH_FAVORITES + FULFILLED:
+      return produce(state, draftState => {
+        draftState.links.loading = false;
+        draftState.links.data = action.payload.data;
+      });
+
+    case FETCH_FAVORITES + REJECTED:
+      return produce(state, draftState => {
+        draftState.links.loading = false;
+        draftState.links.error = action.payload;
       });
 
     default:

@@ -1,7 +1,7 @@
 import * as React from "react";
 import { List } from "../../components/List";
 import { CombinedReducers } from "../../redux/reducers";
-import { fetchLinks } from "../../redux/actions";
+import { fetchLinks, fetchFavorites } from "../../redux/actions";
 import { connect } from "react-redux";
 import { compose } from "redux";
 import { Links, Link as ILink, Link } from "../../redux/reducers/linksReducer";
@@ -12,16 +12,20 @@ import { LinkListItem } from "./linksList/LinkListItem";
 import { LinkDrawer } from "./linksList/LinkDrawer";
 import { LinkDrawerContainer } from "./linksList/LinkDrawerContainer";
 
-
 interface Props {
   links: Links;
   fetchLinks: (group: string) => void;
+  fetchFavorites: () => void;
   [type: string]: any;
 }
 
 const Component = (props: Props) => {
   React.useEffect(() => {
-    props.fetchLinks(props.group);
+    if (props.path === "favorites") {
+      props.fetchFavorites();
+    } else {
+      props.fetchLinks(props.group);
+    }
   }, []);
 
   const [drawerState, setDrawerState] = React.useState({
@@ -95,14 +99,20 @@ const Component = (props: Props) => {
 export const LinksList = compose(
   connect(
     mapStateToProps,
-    { fetchLinks }
+    { fetchLinks, fetchFavorites }
   )
 )(Component);
 
 function mapStateToProps(state: CombinedReducers, props: any) {
-  return {
-    links: filterLinks(state.links, props.group)
-  };
+  if (props.path === "favorites") {
+    return {
+      links: state.favorites.links
+    };
+  } else {
+    return {
+      links: filterLinks(state.links, props.group)
+    };
+  }
 }
 
 function filterLinks(links: Links, group: string) {
