@@ -11,17 +11,23 @@ const ButtonStyled = styled(Fab)`
   }
 `;
 
-const ImgWhite = styled.img`
-  filter: invert(100%) sepia(0%) saturate(1138%) hue-rotate(293deg)
-    brightness(120%) contrast(100%);
+const BackIcon = styled.img`
+  mask: url(${backIcon}) no-repeat center;
+  background-color: #fff;
+  width: 40px;
+  height: 40px;
+  background-color: #000;
+  background-size: cover;
+  margin: 10px 0;
+  :hover, :active, :focus {
+    
+  }
 `;
 
 export const BackButton = (props: any) => (
   <Layout>
     <Link to="/" replace={true}>
-      <ButtonStyled color="primary" aria-label="Back" {...props}>
-        <ImgWhite src={backIcon} alt="Back" />
-      </ButtonStyled>
+      <BackIcon src={backIcon} alt="Back" />
     </Link>
   </Layout>
 );
