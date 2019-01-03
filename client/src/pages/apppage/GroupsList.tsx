@@ -35,6 +35,15 @@ export const GroupsList = connect(
     );
   }
 
+  if(props.groups.data.length === 0 && props.groups.loading === true) {
+    return (
+      <React.Fragment>
+      <AddLinkForm />
+      <List.Loading />
+    </React.Fragment>
+    )
+  }
+
   return (
     <React.Fragment>
       <AddLinkForm />

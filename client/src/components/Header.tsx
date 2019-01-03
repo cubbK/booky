@@ -2,6 +2,8 @@ import * as React from "react";
 import styled from "styled-components";
 import { Link } from "@reach/router";
 import logo from "../shared/logo.png";
+import LoadingBar from "react-redux-loading-bar";
+
 const Container = styled.header`
   width: 95%;
   margin: 0 auto;
@@ -29,6 +31,7 @@ export class Header extends React.Component {
   render() {
     return (
       <Container>
+        <LoadingBar />
         <Link to="/">
           <Logo src={logo} alt="Booky" />
         </Link>

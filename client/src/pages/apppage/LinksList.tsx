@@ -70,7 +70,7 @@ const Component = (props: Props) => {
     return <div>Error</div>;
   }
 
-  if (props.links.loading) {
+  if (props.links.loading && props.links.data.length === 0) {
     return (
       <React.Fragment>
         <BackButton />
@@ -87,7 +87,7 @@ const Component = (props: Props) => {
         link={getSelectedLink()}
       />
       <BackButton />
-      {props.loading ? "Loading" : null}
+      {props.links.loading ? "Loading" : null}
       <List>{mapListItems(props.links.data)}</List>
     </React.Fragment>
   );
