@@ -47,7 +47,6 @@ export const GroupsList = connect(
   return (
     <React.Fragment>
       <AddLinkForm />
-      {props.groups.loading ? "Loading" : null}
       <List>{mapListItems(props.groups.data)}</List>
     </React.Fragment>
   );

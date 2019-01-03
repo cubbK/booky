@@ -87,7 +87,6 @@ const Component = (props: Props) => {
         link={getSelectedLink()}
       />
       <BackButton />
-      {props.links.loading ? "Loading" : null}
       <List>{mapListItems(props.links.data)}</List>
     </React.Fragment>
   );
