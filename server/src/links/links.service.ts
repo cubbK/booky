@@ -84,35 +84,37 @@ export class LinksService {
 
     const groups: Array<{ name: string; linksCount: number; id: number }> = [];
 
-    // create Favorites group, with a known id of 0
-    groups.push({
-      id: 0,
-      name: 'Favorites',
-      linksCount: 0,
-    });
-
     for (const link of links) {
       const categoryIndex = groups.findIndex(
         category => category.name === link.group,
       );
-
-      if (link.isFavorite) {
-        // groups[0] is always Favorites group
-        groups[0].linksCount = groups[0].linksCount + 1;
-      }
-
       if (categoryIndex === -1) {
         groups.push({
           id: groups.length,
           name: link.group,
           linksCount: 1,
         });
-      } else if (categoryIndex !== 0 /* not equal to favorites tab */) {
+      } else {
         groups[categoryIndex].linksCount += 1;
       }
     }
 
     return groups;
+  }
+
+  async getFavoriteLinksCount(userId: number) {
+    const user = await this.usersRepository.findOne(userId);
+    const links = await this.linkRepository.find({ user });
+
+    let count = 0;
+
+    for (const link of links) {
+      if (link.isFavorite) {
+        count = count + 1;
+      }
+    }
+
+    return count;
   }
 
   async getLinksByGroupName(userId: number, groupName: string) {
