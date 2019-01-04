@@ -11,6 +11,7 @@ import { BackButton } from "./linksList/BackButton";
 import { LinkListItem } from "./linksList/LinkListItem";
 import { LinkDrawer } from "./linksList/LinkDrawer";
 import { LinkDrawerContainer } from "./linksList/LinkDrawerContainer";
+import { ErrorKawaii } from "../../components/ErrorKawaii";
 
 interface Props {
   links: Links;
@@ -71,7 +72,12 @@ const Component = (props: Props) => {
   }
 
   if (props.links.error) {
-    return <div>Error</div>;
+    return (
+      <React.Fragment>
+        <BackButton />
+        <ErrorKawaii message={props.links.error.message} />
+      </React.Fragment>
+    );
   }
 
   if (props.links.loading && props.links.data.length === 0) {

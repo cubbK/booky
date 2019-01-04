@@ -8,11 +8,11 @@ import { Group, Groups } from "../../redux/reducers/groupsReducer";
 import { fetchGroups, fetchFavoriteLinksCount } from "../../redux/actions";
 import produce from "immer";
 import { sortBy } from "lodash";
-import { Divider } from "@material-ui/core";
 import { NumberIndicator } from "./groupsList/NumberIndicator";
 import { GroupName } from "./groupsList/GroupName";
 import { Count } from "../../redux/reducers/favoritesReducer";
 import { FavoriteItem } from "./groupsList/FavoriteItem";
+import { ErrorKawaii } from "../../components/ErrorKawaii";
 
 interface Props {
   groups: Groups;
@@ -35,7 +35,7 @@ export const GroupsList = connect(
     return (
       <React.Fragment>
         <AddLinkForm />
-        <div>Error</div>
+        <ErrorKawaii message={props.groups.error.message}/>
       </React.Fragment>
     );
   }
