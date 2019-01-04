@@ -26,7 +26,7 @@ const FormFieldStyled = styled(FormField)`
 
 const FormButtonStyled = styled(FormButton)`
   && {
-    height: 55px;
+    height: 56px;
     margin-top: 7px;
   }
 `;

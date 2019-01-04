@@ -8,6 +8,9 @@ export const muiTheme = createMuiTheme({
   },
   typography: {
     useNextVariants: true
+  },
+  shape: {
+    borderRadius: 0
   }
 });
 
