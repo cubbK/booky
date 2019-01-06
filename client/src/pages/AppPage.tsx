@@ -10,7 +10,7 @@ import { CombinedReducers } from "../redux/reducers";
 import { Paper } from "@material-ui/core";
 import { fetchWithAuth } from "../helpers/fetchWithAuth";
 import { API_URL } from "../constants";
-import { refreshJwt } from "../redux/actions";
+import { refreshJwt, setJwt } from "../redux/actions";
 
 const Container = styled.div`
   min-height: 100vh;
@@ -28,10 +28,9 @@ interface Props {
 
 export const AppPage = connect(
   (state: CombinedReducers) => ({ jwt: state.jwt }),
-  { refreshJwt }
+  { refreshJwt, setJwt }
 )((props: Props) => {
   React.useEffect(() => {
-    console.log(props.jwt);
     try {
       fetchWithAuth({ url: `${API_URL}/auth/refresh/${props.jwt}` }).then(
         response => {
@@ -41,7 +40,7 @@ export const AppPage = connect(
         }
       );
     } catch (err) {
-      navigate("/landing");
+      props.setJwt(null);
     }
   }, []);
 
