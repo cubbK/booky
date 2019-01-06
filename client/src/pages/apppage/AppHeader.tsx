@@ -3,6 +3,8 @@ import { Header } from "../../components/Header";
 import { connect } from "react-redux";
 import { setJwt } from "../../redux/actions";
 import { Button } from "@material-ui/core";
+import styled from "styled-components";
+import { ButtonProps } from "@material-ui/core/Button";
 
 interface Props {
   setJwt: (jwt: any) => void;
@@ -23,7 +25,17 @@ export const AppHeader = connect(
 
   return (
     <Header>
-      <Button onClick={handleLogout}>Logout</Button>
+      <WhiteButton onClick={handleLogout}>Logout</WhiteButton>
     </Header>
   );
 });
+
+const WhiteButton = styled(Button)`
+  && {
+    color: #fafafa;
+    :hover {
+      text-decoration: none;
+      background-color: rgba(255, 255, 255, 0.08);
+    }
+  }
+` as any;

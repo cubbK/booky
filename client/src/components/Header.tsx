@@ -1,25 +1,20 @@
 import * as React from "react";
 import styled from "styled-components";
 import { Link } from "@reach/router";
-import logo from "../shared/logo.png";
+import logo from "../shared/LogoNew.png";
+
+const FullWidthContainer = styled.div`
+  background-color: #222;
+`;
 
 const Container = styled.header`
   width: 95%;
   margin: 0 auto;
-  min-height: 55px;
+  min-height: 46px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  @media (max-width: 650px) {
-    min-height: 60px;
-  }
-  @media (max-width: 500px) {
-    flex-direction: column;
-    justify-content: space-around;
-    & > * {
-      margin: 10px 0;
-    }
-  }
+  
 `;
 
 const Logo = styled.img`
@@ -29,14 +24,14 @@ const Logo = styled.img`
 export class Header extends React.Component {
   render() {
     return (
-      <React.Fragment>
+      <FullWidthContainer>
         <Container>
           <Link to="/">
             <Logo src={logo} alt="Booky" />
           </Link>
           {this.props.children}
         </Container>
-      </React.Fragment>
+      </FullWidthContainer>
     );
   }
 }
