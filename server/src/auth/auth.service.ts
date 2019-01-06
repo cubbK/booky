@@ -1,5 +1,5 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
-import { sign, decode } from 'jsonwebtoken';
+import { sign, decode, verify } from 'jsonwebtoken';
 import { jwtSecret } from 'src/constants';
 import { UsersService } from 'src/users/users.service';
 import { User } from 'src/users/user.entity';
@@ -54,12 +54,16 @@ export class AuthService {
   }
 
   async refreshJwt(jwt: string) {
-    const payload: any = decode(jwt);
+    try {
+      const payload: any = verify(jwt, this.JWT_SECRET_KEY);
 
-    const { exp, iat, ...cleanPayload } = payload;
-    const newJwt = sign(cleanPayload, this.JWT_SECRET_KEY, {
-      expiresIn: 604800, // 7 days
-    });
-    return newJwt;
+      const { exp, iat, ...cleanPayload } = payload;
+      const newJwt = sign(cleanPayload, this.JWT_SECRET_KEY, {
+        expiresIn: 604800, // 7 days
+      });
+      return newJwt;
+    } catch (err) {
+      throw new InternalServerErrorException('validateOAuthLogin', err.message);
+    }
   }
 }

@@ -21,12 +21,10 @@ export function setJwt(jwt: string) {
   };
 }
 
-export function refreshJWT(jwt: string | null) {
+export function refreshJwt(jwt: string | null) {
   return {
     type: REFRESH_JWT,
-    payload: axios.get(`${API_URL}/auth/refresh/${jwt}`, {
-      headers: { Authorization: `Bearer ${jwt}` }
-    })
+    payload: jwt
   };
 }
 

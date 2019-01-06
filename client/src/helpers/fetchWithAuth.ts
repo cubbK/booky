@@ -1,7 +1,6 @@
 import axios, { AxiosRequestConfig } from "axios";
 import produce from "immer";
 import { store } from "../redux/store";
-import { refreshJWT } from "../redux/actions";
 
 export async function fetchWithAuth(config: AxiosRequestConfig) {
   const state = store.getState();

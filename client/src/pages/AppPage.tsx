@@ -8,6 +8,9 @@ import { LinksList } from "./apppage/LinksList";
 import { connect } from "react-redux";
 import { CombinedReducers } from "../redux/reducers";
 import { Paper } from "@material-ui/core";
+import { fetchWithAuth } from "../helpers/fetchWithAuth";
+import { API_URL } from "../constants";
+import { refreshJwt } from "../redux/actions";
 
 const Container = styled.div`
   min-height: 100vh;
@@ -17,7 +20,7 @@ const Container = styled.div`
 
 const RouterFullHeight = styled(Router)`
   min-height: 100%;
-`
+`;
 
 interface Props {
   [type: string]: any;
@@ -25,8 +28,23 @@ interface Props {
 
 export const AppPage = connect(
   (state: CombinedReducers) => ({ jwt: state.jwt }),
-  {}
+  { refreshJwt }
 )((props: Props) => {
+  React.useEffect(() => {
+    console.log(props.jwt);
+    try {
+      fetchWithAuth({ url: `${API_URL}/auth/refresh/${props.jwt}` }).then(
+        response => {
+          const newJwt = response.data;
+
+          props.refreshJwt(newJwt);
+        }
+      );
+    } catch (err) {
+      navigate("/landing");
+    }
+  }, []);
+
   React.useEffect(
     () => {
       if (!props.jwt) {
@@ -41,9 +59,9 @@ export const AppPage = connect(
       <AppHeader />
       <main>
         <RouterFullHeight>
-            <GroupsList path="/" />
-            <LinksList path="group/:group" />
-            <LinksList path="favorites" />
+          <GroupsList path="/" />
+          <LinksList path="group/:group" />
+          <LinksList path="favorites" />
         </RouterFullHeight>
       </main>
       <Footer />

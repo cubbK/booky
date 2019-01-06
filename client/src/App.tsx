@@ -10,7 +10,6 @@ import "./App.css";
 import { Provider } from "react-redux";
 import { store, persistor } from "./redux/store";
 import { PersistGate } from "redux-persist/integration/react";
-import { withRefreshJwt } from "./hocs/withRefreshJwt";
 import { compose } from "redux";
 import { MuiThemeProvider } from "@material-ui/core";
 import { muiTheme, styledTheme } from "./muiTheme";
