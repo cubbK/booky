@@ -11,6 +11,7 @@ import { Paper } from "@material-ui/core";
 import { fetchWithAuth } from "../helpers/fetchWithAuth";
 import { API_URL } from "../constants";
 import { refreshJwt, setJwt } from "../redux/actions";
+import { AnimatedRouter } from "./apppage/AnimatedRouter";
 
 const Container = styled.div`
   min-height: 100vh;
@@ -57,11 +58,11 @@ export const AppPage = connect(
     <Container>
       <AppHeader />
       <main>
-        <RouterFullHeight>
+        <AnimatedRouter>
           <GroupsList path="/" />
           <LinksList path="group/:group" />
           <LinksList path="favorites" />
-        </RouterFullHeight>
+        </AnimatedRouter>
       </main>
       <Footer />
     </Container>
