@@ -4,28 +4,29 @@ import { Fab } from "@material-ui/core";
 import backIcon from "./images/iconmonstr-arrow-72.svg";
 import styled from "styled-components";
 
-const ButtonStyled = styled(Fab)`
+const BackLink = styled(Link)`
   && {
-    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
-`;
-
-const BackIcon = styled.img`
-  mask: url(${backIcon}) no-repeat center;
-  background-color: #fff;
-  width: 40px;
-  height: 40px;
-  background-color: #000;
-  background-size: cover;
-  display: block;
-  :hover,
-  :active,
-  :focus {
+  img {
+    mask: url(${backIcon}) no-repeat center;
+    background-color: #fff;
+    width: 40px;
+    height: 40px;
+    background-color: #000;
+    background-size: cover;
+    display: block;
+    :hover,
+    :active,
+    :focus {
+    }
   }
 `;
 
 export const BackButton = (props: any) => (
-  <Link to="/" replace={true}>
-    <BackIcon src={backIcon} alt="Back" />
-  </Link>
+  <BackLink to="/" replace={true} {...props}>
+    <img alt="Back" />
+  </BackLink>
 );
