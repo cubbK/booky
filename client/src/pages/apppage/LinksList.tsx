@@ -12,11 +12,13 @@ import { LinkListItem } from "./linksList/LinkListItem";
 import { LinkDrawer } from "./linksList/LinkDrawer";
 import { LinkDrawerContainer } from "./linksList/LinkDrawerContainer";
 import { ErrorKawaii } from "../../components/ErrorKawaii";
+import { LinksListUpper } from "./linksList/LinksListUpper";
 
 interface Props {
   links: Links;
   fetchLinks: (group: string) => void;
   fetchFavorites: () => void;
+  group: string;
   [type: string]: any;
 }
 
@@ -74,7 +76,7 @@ const Component = (props: Props) => {
   if (props.links.error) {
     return (
       <React.Fragment>
-        <BackButton />
+        <LinksListUpper groupName={props.group} />
         <ErrorKawaii message={props.links.error.message} />
       </React.Fragment>
     );
@@ -83,7 +85,7 @@ const Component = (props: Props) => {
   if (props.links.loading && props.links.data.length === 0) {
     return (
       <React.Fragment>
-        <BackButton />
+        <LinksListUpper groupName={props.group} />
         <List.Loading />
       </React.Fragment>
     );
@@ -96,7 +98,7 @@ const Component = (props: Props) => {
         toggleDrawer={toggleDrawer}
         link={getSelectedLink()}
       />
-      <BackButton />
+      <LinksListUpper groupName={props.group} />
       <List>{mapListItems(props.links.data)}</List>
     </React.Fragment>
   );
