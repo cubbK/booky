@@ -25,6 +25,7 @@ const RouterFullHeight = styled(Router)`
 
 const Main = styled.main`
   overflow: hidden;
+  max-width: 100vw;
 `
 
 interface Props {
@@ -62,11 +63,11 @@ export const AppPage = connect(
     <Container>
       <AppHeader />
       <Main>
-        <AnimatedRouter>
+        <Router>
           <GroupsList path="/" />
           <LinksList path="group/:group" />
           <LinksList path="favorites" />
-        </AnimatedRouter>
+        </Router>
       </Main>
       <Footer />
     </Container>
