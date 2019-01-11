@@ -23,6 +23,10 @@ const RouterFullHeight = styled(Router)`
   min-height: 100%;
 `;
 
+const Main = styled.main`
+  overflow: hidden;
+`
+
 interface Props {
   [type: string]: any;
 }
@@ -57,13 +61,13 @@ export const AppPage = connect(
   return (
     <Container>
       <AppHeader />
-      <main>
+      <Main>
         <AnimatedRouter>
           <GroupsList path="/" />
           <LinksList path="group/:group" />
           <LinksList path="favorites" />
         </AnimatedRouter>
-      </main>
+      </Main>
       <Footer />
     </Container>
   );
