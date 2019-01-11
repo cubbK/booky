@@ -30,7 +30,7 @@ export class List extends React.Component {
 
   render() {
     return (
-      <PaperFixedWidth {...this.props}>
+      <PaperFixedWidth {...this.props} elevation={8}>
         {this.props.children}
       </PaperFixedWidth>
     );

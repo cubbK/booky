@@ -4,7 +4,7 @@ import { LinksListTitle } from "./LinksListTitle";
 import styled from "styled-components";
 
 interface Props {
-  groupName: string;
+  title: string;
   [type: string]: any;
 }
 
@@ -44,7 +44,7 @@ export const LinksListUpper = (props: Props) => (
     <Container>
       <BackButton className="back-button" />
 
-      <LinksListTitle className="title">{props.groupName}</LinksListTitle>
+      <LinksListTitle className="title">{props.title}</LinksListTitle>
 
       {/* <div className="title">LongTextLongTextLongTextLongTextLongTextLongText</div> */}
     </Container>

@@ -73,10 +73,12 @@ const Component = (props: Props) => {
     return null; //if no link is found return null
   }
 
+  const title = props.path === "favorites" ? "Favorites" : props.group
+
   if (props.links.error) {
     return (
       <React.Fragment>
-        <LinksListUpper groupName={props.group} />
+        <LinksListUpper title={title} />
         <ErrorKawaii message={props.links.error.message} />
       </React.Fragment>
     );
@@ -85,11 +87,13 @@ const Component = (props: Props) => {
   if (props.links.loading && props.links.data.length === 0) {
     return (
       <React.Fragment>
-        <LinksListUpper groupName={props.group} />
+        <LinksListUpper title={title} />
         <List.Loading />
       </React.Fragment>
     );
   }
+
+
 
   return (
     <React.Fragment>
@@ -98,7 +102,7 @@ const Component = (props: Props) => {
         toggleDrawer={toggleDrawer}
         link={getSelectedLink()}
       />
-      <LinksListUpper groupName={props.group} />
+      <LinksListUpper title={title} />
       <List>{mapListItems(props.links.data)}</List>
     </React.Fragment>
   );
