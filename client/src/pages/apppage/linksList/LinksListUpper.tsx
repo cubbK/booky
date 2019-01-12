@@ -32,6 +32,7 @@ const Container = styled.div`
     text-overflow: ellipsis;
     height: 53px;
     overflow: hidden;
+    font-weight: 700;
     @media (max-width: 680px) {
       font-size: 2rem;
       height: auto;

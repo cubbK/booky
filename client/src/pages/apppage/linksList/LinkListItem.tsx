@@ -28,6 +28,7 @@ const Link = styled.a`
 `;
 
 const Title = styled.div`
+  font-size: 1.15rem;
   overflow-x: hidden;
   text-overflow: ellipsis;
 `;

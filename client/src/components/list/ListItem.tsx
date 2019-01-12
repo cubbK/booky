@@ -12,7 +12,8 @@ const ListItemComponentStyled = styled(ListItemComponent)`
   && {
     display: flex;
     justify-content: space-between;
-    font-weight: 600;
+    font-weight: 400;
+    font-size: 1.15rem;
   }
 ` as any;
 

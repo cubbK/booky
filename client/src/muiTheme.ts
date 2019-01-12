@@ -7,6 +7,7 @@ export const muiTheme = createMuiTheme({
     }
   },
   typography: {
+    fontFamily: "'IBM Plex Sans', sans-serif",
     useNextVariants: true
   },
   shape: {
