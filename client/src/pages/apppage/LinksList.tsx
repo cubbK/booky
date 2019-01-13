@@ -11,8 +11,8 @@ import { BackButton } from "./linksList/BackButton";
 import { LinkListItem } from "./linksList/LinkListItem";
 import { LinkDrawer } from "./linksList/LinkDrawer";
 import { LinkDrawerContainer } from "./linksList/LinkDrawerContainer";
-import { ErrorKawaii } from "../../components/ErrorKawaii";
 import { LinksListUpper } from "./linksList/LinksListUpper";
+import { KawaiiSuggestion } from "../../components/KawaiiSuggestion";
 
 interface Props {
   links: Links;
@@ -79,7 +79,8 @@ const Component = (props: Props) => {
     return (
       <React.Fragment>
         <LinksListUpper title={title} />
-        <ErrorKawaii message={props.links.error.message} />
+        <List>{mapListItems(props.links.data)}</List>
+        <KawaiiSuggestion message="Something bad had happened." mood="shocked" />
       </React.Fragment>
     );
   }
@@ -89,6 +90,15 @@ const Component = (props: Props) => {
       <React.Fragment>
         <LinksListUpper title={title} />
         <List.Loading />
+      </React.Fragment>
+    );
+  }
+
+  if (props.links.data.length === 0) {
+    return (
+      <React.Fragment>
+        <LinksListUpper title={title} />
+        <KawaiiSuggestion message="There list is empty" mood="sad"/>
       </React.Fragment>
     );
   }

@@ -1,11 +1,12 @@
 import * as React from "react";
-import { Ghost } from "react-kawaii";
+import { Cat } from "react-kawaii";
 import { Layout } from "./Layout";
 import styled from "styled-components";
 import { Typography } from "@material-ui/core";
 
 const LayoutCentered = styled(Layout)`
   && {
+    margin: 10px 0;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -15,16 +16,28 @@ const LayoutCentered = styled(Layout)`
 
 interface Props {
   message: any;
+  mood?:
+    | "sad"
+    | "shocked"
+    | "happy"
+    | "blissful"
+    | "lovestruck"
+    | "excited"
+    | "ko";
   [type: string]: any;
 }
 
-export const ErrorKawaii = (props: Props) => {
+export const KawaiiSuggestion = (props: Props) => {
   return (
     <LayoutCentered {...props}>
-      <Ghost size={280} mood="sad" color="#E0E4E8" />
+      <Cat size={280} mood={props.mood} color="#E0E4E8" />
       <Typography variant="h5" gutterBottom>
         {props.message}
       </Typography>
     </LayoutCentered>
   );
+};
+
+KawaiiSuggestion.defaultProps = {
+  mood: "sad"
 };

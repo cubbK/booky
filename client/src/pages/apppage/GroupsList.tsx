@@ -12,7 +12,7 @@ import { NumberIndicator } from "./groupsList/NumberIndicator";
 import { GroupName } from "./groupsList/GroupName";
 import { Count } from "../../redux/reducers/favoritesReducer";
 import { FavoriteItem } from "./groupsList/FavoriteItem";
-import { ErrorKawaii } from "../../components/ErrorKawaii";
+import { KawaiiSuggestion } from "../../components/KawaiiSuggestion";
 
 interface Props {
   groups: Groups;
@@ -35,7 +35,14 @@ export const GroupsList = connect(
     return (
       <React.Fragment>
         <AddLinkForm />
-        <ErrorKawaii message={props.groups.error.message}/>
+        <List>
+          <FavoriteItem count={props.favoriteLinksCount} />
+          {mapListItems(props.groups.data)}
+        </List>
+        <KawaiiSuggestion
+          message="Something bad had happened."
+          mood="shocked"
+        />
       </React.Fragment>
     );
   }
@@ -45,6 +52,18 @@ export const GroupsList = connect(
       <React.Fragment>
         <AddLinkForm />
         <List.Loading />
+      </React.Fragment>
+    );
+  }
+
+  if (props.groups.data.length === 0) {
+    return (
+      <React.Fragment>
+        <AddLinkForm />
+        <List>
+          <FavoriteItem count={props.favoriteLinksCount} />
+        </List>
+        <KawaiiSuggestion message="Try adding some urls" mood="excited" />
       </React.Fragment>
     );
   }

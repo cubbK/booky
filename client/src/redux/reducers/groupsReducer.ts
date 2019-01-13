@@ -30,11 +30,13 @@ export function groupsReducer(state = defaultState, action: any) {
     case FETCH_GROUPS + PENDING:
       return produce(state, draftState => {
         draftState.loading = true;
+        draftState.error = null;
       });
     case FETCH_GROUPS + FULFILLED:
       return produce(state, draftState => {
         draftState.loading = false;
         draftState.data = action.payload.data;
+        draftState.error = null;
       });
     case FETCH_GROUPS + REJECTED:
       return produce(state, draftState => {

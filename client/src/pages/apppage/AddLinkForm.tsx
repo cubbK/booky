@@ -45,9 +45,9 @@ const Component = (props: Props) => {
           props.addLink(link);
           resetForm();
         } catch (err) {
+          console.log(err.message)
           const message =
-            (err.response && err.response.data && err.response.data.message) ||
-            "Error";
+            (err.response && err.response.data && err.response.data.message) || err.message;
           setSnackbar({ open: true, message: message });
         }
 
