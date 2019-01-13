@@ -66,7 +66,6 @@ const Component: React.FunctionComponent<Props> = (props: Props) => {
   }
 
   function getSelectedLink(): Link | null {
-    console.log(drawerState);
     for (const link of props.links.data) {
       if (link.id === drawerState.linkId) {
         return link;
@@ -119,7 +118,7 @@ const Component: React.FunctionComponent<Props> = (props: Props) => {
 function mapStateToProps(state: CombinedReducers, props: any) {
   if (props.path === "favorites") {
     return {
-      links: state.favorites.links
+      links: filterFavoriteLinks(state.links)
     };
   } else {
     return {
@@ -132,6 +131,12 @@ function filterLinks(links: Links, group: string) {
   return produce(links, draftLinks => {
     draftLinks.data = draftLinks.data.filter(link => link.group === group);
   });
+}
+
+function filterFavoriteLinks(links: Links) {
+  return produce(links, draftLinks => {
+    draftLinks.data = draftLinks.data.filter(link => link.isFavorite === true)
+  })
 }
 
 export const LinksList = compose(

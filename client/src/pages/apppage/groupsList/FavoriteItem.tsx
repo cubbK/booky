@@ -1,5 +1,4 @@
 import * as React from "react";
-import { Count } from "../../../redux/reducers/favoritesReducer";
 import { Link } from "@reach/router";
 import { List } from "../../../components/List";
 import { GroupName } from "./GroupName";
@@ -21,13 +20,13 @@ const GroupNameCentered = styled(GroupName)`
   align-items: center;
 `;
 
-export const FavoriteItem = (props: { count: Count }) => (
+export const FavoriteItem = (props: { count: number }) => (
   <Link to={`/favorites`} key={-1}>
     <List.Item button={true}>
       <GroupNameCentered>
         Favorites <Star />
       </GroupNameCentered>
-      <NumberIndicator>{props.count.data}</NumberIndicator>
+      <NumberIndicator>{props.count}</NumberIndicator>
     </List.Item>
   </Link>
 );

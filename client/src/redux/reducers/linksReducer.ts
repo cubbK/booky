@@ -5,7 +5,8 @@ import {
   FETCH_LINKS,
   ADD_LINK,
   SET_FAVORITE_LINK,
-  DELETE_LINK
+  DELETE_LINK,
+  FETCH_FAVORITES
 } from "../actionTypes";
 import produce from "immer";
 import { uniqWith, isEqual } from "lodash";
@@ -65,6 +66,28 @@ export function linksReducer(state = defaultState, action: any) {
         draftState.data = draftState.data.filter(
           link => link.id != action.payload.data.linkId
         );
+      });
+
+
+    case FETCH_FAVORITES + PENDING:
+      return produce(state, draftState => {
+        draftState.loading = true;
+        draftState.error = null;
+      });
+
+    case FETCH_FAVORITES + FULFILLED:
+      return produce(state, draftState => {
+        draftState.loading = false;
+        const dataWithDuplicates = [...draftState.data, ...action.payload.data];
+        const dataWithoutDuplicates = uniqWith(dataWithDuplicates, isEqual);
+        draftState.data = dataWithoutDuplicates;
+        draftState.error = null;
+      });
+
+    case FETCH_FAVORITES + REJECTED:
+      return produce(state, draftState => {
+        draftState.loading = false;
+        draftState.error = action.payload;
       });
 
     default:

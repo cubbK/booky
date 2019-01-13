@@ -10,7 +10,6 @@ import produce from "immer";
 import { sortBy } from "lodash";
 import { NumberIndicator } from "./groupsList/NumberIndicator";
 import { GroupName } from "./groupsList/GroupName";
-import { Count } from "../../redux/reducers/favoritesReducer";
 import { FavoriteItem } from "./groupsList/FavoriteItem";
 import { KawaiiSuggestion } from "../../components/KawaiiSuggestion";
 import { InjectedNotistackProps, withSnackbar } from "notistack";
@@ -18,7 +17,7 @@ import { compose } from "redux";
 
 interface Props {
   groups: Groups;
-  favoriteLinksCount: Count;
+  favoritesCount: number;
   fetchGroups: () => void;
   fetchFavoriteLinksCount: () => void;
   enqueueSnackbar: InjectedNotistackProps["enqueueSnackbar"];
@@ -64,7 +63,7 @@ const Component: React.FunctionComponent<Props> = (props: Props) => {
     <React.Fragment>
       <AddLinkForm />
       <List>
-        <FavoriteItem count={props.favoriteLinksCount} />
+        <FavoriteItem count={props.favoritesCount} />
         {mapListItems(props.groups.data)}
       </List>
     </React.Fragment>
@@ -85,7 +84,7 @@ function mapListItems(groups: Array<Group>) {
 function mapStateToProps(state: CombinedReducers) {
   return {
     groups: sortAsc(state.groups),
-    favoriteLinksCount: state.favorites.count
+    favoritesCount: state.favoritesCount
   };
 }
 
