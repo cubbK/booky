@@ -8,6 +8,8 @@ import { Form } from "../../components/Form";
 import { addLink } from "../../redux/actions";
 import { Link } from "../../redux/reducers/linksReducer";
 import * as Yup from "yup";
+import { withSnackbar } from "notistack";
+import { compose } from "redux";
 
 const AddLinkSchema = Yup.object().shape({
   url: Yup.string().required("Add url")
@@ -19,15 +21,6 @@ interface Props {
 }
 
 const Component = (props: Props) => {
-  const [snackbar, setSnackbar] = React.useState({
-    message: null,
-    open: false
-  });
-
-  function handleErrorClose() {
-    setSnackbar({ open: false, message: null });
-  }
-
   return (
     <Formik
       initialValues={{ url: "" }}
@@ -44,11 +37,12 @@ const Component = (props: Props) => {
           const link: Link = response.data;
           props.addLink(link);
           resetForm();
+          // set snackbar
         } catch (err) {
-          console.log(err.message)
           const message =
-            (err.response && err.response.data && err.response.data.message) || err.message;
-          setSnackbar({ open: true, message: message });
+            (err.response && err.response.data && err.response.data.message) ||
+            err.message;
+          // set snackbar
         }
 
         setSubmitting(false);
@@ -76,20 +70,16 @@ const Component = (props: Props) => {
             />
             <Form.Button disabled={isSubmitting}>Add</Form.Button>
           </Form>
-          <Form.ErrorContainer>
-            <Form.Error
-              message={snackbar.message}
-              handleClose={handleErrorClose}
-              open={snackbar.open}
-            />
-          </Form.ErrorContainer>
         </React.Fragment>
       )}
     </Formik>
   );
 };
 
-export const AddLinkForm = connect(
-  null,
-  { addLink }
+export const AddLinkForm = compose(
+  withSnackbar,
+  connect(
+    null,
+    { addLink }
+  )
 )(Component);

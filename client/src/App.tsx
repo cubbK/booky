@@ -15,6 +15,7 @@ import { MuiThemeProvider } from "@material-ui/core";
 import { muiTheme, styledTheme } from "./muiTheme";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import LoadingBar from "react-redux-loading-bar";
+import { SnackbarProvider } from "notistack";
 
 function App() {
   return (
@@ -27,11 +28,13 @@ function App() {
               progressIncrease={10}
               style={{ backgroundColor: "#1C77C3" }}
             />
-            <Router>
-              <HomePage path="/landing" />
-              <AppPage path="/*" />
-              <LoginPage path="/login/:status/:jwt" />
-            </Router>
+            <SnackbarProvider maxSnack={3}>
+              <Router>
+                <HomePage path="/landing" />
+                <AppPage path="/*" />
+                <LoginPage path="/login/:status/:jwt" />
+              </Router>
+            </SnackbarProvider>
           </MuiThemeProvider>
         </PersistGate>
       </Provider>
