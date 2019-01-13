@@ -3,12 +3,11 @@ import { Formik, FormikValues } from "formik";
 import { fetchWithAuth } from "../../helpers/fetchWithAuth";
 import { API_URL } from "../../constants";
 import { connect } from "react-redux";
-import { TextField } from "@material-ui/core";
 import { Form } from "../../components/Form";
 import { addLink } from "../../redux/actions";
 import { Link } from "../../redux/reducers/linksReducer";
 import * as Yup from "yup";
-import { withSnackbar } from "notistack";
+import { withSnackbar, InjectedNotistackProps } from "notistack";
 import { compose } from "redux";
 
 const AddLinkSchema = Yup.object().shape({
@@ -17,10 +16,13 @@ const AddLinkSchema = Yup.object().shape({
 
 interface Props {
   addLink: (link: Link) => void;
+  enqueueSnackbar: InjectedNotistackProps["enqueueSnackbar"];
   [type: string]: any;
 }
 
-const Component = (props: Props) => {
+// compose doesn't work without React.StatelessComponent<Props>
+const Component: React.StatelessComponent<Props> = (props: Props) => {
+  console.log(props);
   return (
     <Formik
       initialValues={{ url: "" }}
@@ -38,11 +40,13 @@ const Component = (props: Props) => {
           props.addLink(link);
           resetForm();
           // set snackbar
+          props.enqueueSnackbar("Add link", { variant: "success" });
         } catch (err) {
           const message =
             (err.response && err.response.data && err.response.data.message) ||
             err.message;
           // set snackbar
+          props.enqueueSnackbar(message, { variant: "error" });
         }
 
         setSubmitting(false);
@@ -76,10 +80,11 @@ const Component = (props: Props) => {
   );
 };
 
+// compose doesn't work without React.StatelessComponent<Props>
 export const AddLinkForm = compose(
-  withSnackbar,
   connect(
     null,
     { addLink }
-  )
-)(Component);
+  ),
+  withSnackbar
+)(Component) as React.StatelessComponent;
