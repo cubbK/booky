@@ -3,11 +3,12 @@ import { Formik, FormikValues } from "formik";
 import { fetchWithAuth } from "../../helpers/fetchWithAuth";
 import { API_URL } from "../../constants";
 import { connect } from "react-redux";
-import { TextField } from "@material-ui/core";
 import { Form } from "../../components/Form";
 import { addLink } from "../../redux/actions";
 import { Link } from "../../redux/reducers/linksReducer";
 import * as Yup from "yup";
+import { withSnackbar, InjectedNotistackProps } from "notistack";
+import { compose } from "redux";
 
 const AddLinkSchema = Yup.object().shape({
   url: Yup.string().required("Add url")
@@ -15,19 +16,13 @@ const AddLinkSchema = Yup.object().shape({
 
 interface Props {
   addLink: (link: Link) => void;
+  enqueueSnackbar: InjectedNotistackProps["enqueueSnackbar"];
   [type: string]: any;
 }
 
-const Component = (props: Props) => {
-  const [snackbar, setSnackbar] = React.useState({
-    message: null,
-    open: false
-  });
-
-  function handleErrorClose() {
-    setSnackbar({ open: false, message: null });
-  }
-
+// compose doesn't work without React.StatelessComponent<Props>
+const Component: React.StatelessComponent<Props> = (props: Props) => {
+  console.log(props);
   return (
     <Formik
       initialValues={{ url: "" }}
@@ -44,11 +39,14 @@ const Component = (props: Props) => {
           const link: Link = response.data;
           props.addLink(link);
           resetForm();
+          // set snackbar
+          props.enqueueSnackbar("Add link", { variant: "success" });
         } catch (err) {
-          console.log(err.message)
           const message =
-            (err.response && err.response.data && err.response.data.message) || err.message;
-          setSnackbar({ open: true, message: message });
+            (err.response && err.response.data && err.response.data.message) ||
+            err.message;
+          // set snackbar
+          props.enqueueSnackbar(message, { variant: "error" });
         }
 
         setSubmitting(false);
@@ -76,20 +74,17 @@ const Component = (props: Props) => {
             />
             <Form.Button disabled={isSubmitting}>Add</Form.Button>
           </Form>
-          <Form.ErrorContainer>
-            <Form.Error
-              message={snackbar.message}
-              handleClose={handleErrorClose}
-              open={snackbar.open}
-            />
-          </Form.ErrorContainer>
         </React.Fragment>
       )}
     </Formik>
   );
 };
 
-export const AddLinkForm = connect(
-  null,
-  { addLink }
-)(Component);
+// compose doesn't work without React.StatelessComponent<Props>
+export const AddLinkForm = compose(
+  connect(
+    null,
+    { addLink }
+  ),
+  withSnackbar
+)(Component) as React.StatelessComponent;

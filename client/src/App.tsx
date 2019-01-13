@@ -11,10 +11,11 @@ import { Provider } from "react-redux";
 import { store, persistor } from "./redux/store";
 import { PersistGate } from "redux-persist/integration/react";
 import { compose } from "redux";
-import { MuiThemeProvider } from "@material-ui/core";
+import { MuiThemeProvider, Button } from "@material-ui/core";
 import { muiTheme, styledTheme } from "./muiTheme";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import LoadingBar from "react-redux-loading-bar";
+import { SnackbarProvider } from "notistack";
 
 function App() {
   return (
@@ -27,11 +28,20 @@ function App() {
               progressIncrease={10}
               style={{ backgroundColor: "#1C77C3" }}
             />
-            <Router>
-              <HomePage path="/landing" />
-              <AppPage path="/*" />
-              <LoginPage path="/login/:status/:jwt" />
-            </Router>
+            <SnackbarProvider
+              maxSnack={1}
+              action={[
+                <Button size="small" style={{color: "#fff"}}>
+                  Dismiss
+                </Button>
+              ]}
+            >
+              <Router>
+                <HomePage path="/landing" />
+                <AppPage path="/*" />
+                <LoginPage path="/login/:status/:jwt" />
+              </Router>
+            </SnackbarProvider>
           </MuiThemeProvider>
         </PersistGate>
       </Provider>
