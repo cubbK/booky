@@ -6,7 +6,7 @@ import { Typography } from "@material-ui/core";
 
 const LayoutCentered = styled(Layout)`
   && {
-    margin: 10px 0;
+    margin: 15px auto;
     display: flex;
     justify-content: center;
     align-items: center;
