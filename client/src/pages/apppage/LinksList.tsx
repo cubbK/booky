@@ -13,16 +13,18 @@ import { LinkDrawer } from "./linksList/LinkDrawer";
 import { LinkDrawerContainer } from "./linksList/LinkDrawerContainer";
 import { LinksListUpper } from "./linksList/LinksListUpper";
 import { KawaiiSuggestion } from "../../components/KawaiiSuggestion";
+import { withSnackbar, InjectedNotistackProps } from "notistack";
 
 interface Props {
   links: Links;
   fetchLinks: (group: string) => void;
   fetchFavorites: () => void;
+  enqueueSnackbar: InjectedNotistackProps["enqueueSnackbar"];
   group: string;
   [type: string]: any;
 }
 
-const Component = (props: Props) => {
+const Component: React.FunctionComponent<Props> = (props: Props) => {
   React.useEffect(() => {
     if (props.path === "favorites") {
       props.fetchFavorites();
@@ -73,16 +75,14 @@ const Component = (props: Props) => {
     return null; //if no link is found return null
   }
 
-  const title = props.path === "favorites" ? "Favorites" : props.group
+  const title = props.path === "favorites" ? "Favorites" : props.group;
 
   if (props.links.error) {
-    return (
-      <React.Fragment>
-        <LinksListUpper title={title} />
-        <List>{mapListItems(props.links.data)}</List>
-        <KawaiiSuggestion message="Something bad had happened." mood="shocked" />
-      </React.Fragment>
-    );
+    const err = props.links.error;
+    const message =
+      (err.response && err.response.data && err.response.data.message) ||
+      err.message;
+    props.enqueueSnackbar(message, { variant: "error" });
   }
 
   if (props.links.loading && props.links.data.length === 0) {
@@ -98,12 +98,10 @@ const Component = (props: Props) => {
     return (
       <React.Fragment>
         <LinksListUpper title={title} />
-        <KawaiiSuggestion message="There list is empty" mood="sad"/>
+        <KawaiiSuggestion message="The list is empty" mood="sad" />
       </React.Fragment>
     );
   }
-
-
 
   return (
     <React.Fragment>
@@ -117,13 +115,6 @@ const Component = (props: Props) => {
     </React.Fragment>
   );
 };
-
-export const LinksList = compose(
-  connect(
-    mapStateToProps,
-    { fetchLinks, fetchFavorites }
-  )
-)(Component);
 
 function mapStateToProps(state: CombinedReducers, props: any) {
   if (props.path === "favorites") {
@@ -142,3 +133,11 @@ function filterLinks(links: Links, group: string) {
     draftLinks.data = draftLinks.data.filter(link => link.group === group);
   });
 }
+
+export const LinksList = compose(
+  connect(
+    mapStateToProps,
+    { fetchLinks, fetchFavorites }
+  ),
+  withSnackbar
+)(Component) as React.FunctionComponent<{ [type: string]: any }>;

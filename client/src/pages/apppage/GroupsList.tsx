@@ -13,38 +13,30 @@ import { GroupName } from "./groupsList/GroupName";
 import { Count } from "../../redux/reducers/favoritesReducer";
 import { FavoriteItem } from "./groupsList/FavoriteItem";
 import { KawaiiSuggestion } from "../../components/KawaiiSuggestion";
+import { InjectedNotistackProps, withSnackbar } from "notistack";
+import { compose } from "redux";
 
 interface Props {
   groups: Groups;
   favoriteLinksCount: Count;
   fetchGroups: () => void;
   fetchFavoriteLinksCount: () => void;
+  enqueueSnackbar: InjectedNotistackProps["enqueueSnackbar"];
   [type: string]: any;
 }
 
-export const GroupsList = connect(
-  mapStateToProps,
-  { fetchGroups, fetchFavoriteLinksCount }
-)((props: Props) => {
+const Component: React.FunctionComponent<Props> = (props: Props) => {
   React.useEffect(() => {
     props.fetchGroups();
     props.fetchFavoriteLinksCount();
   }, []);
 
   if (props.groups.error) {
-    return (
-      <React.Fragment>
-        <AddLinkForm />
-        <List>
-          <FavoriteItem count={props.favoriteLinksCount} />
-          {mapListItems(props.groups.data)}
-        </List>
-        <KawaiiSuggestion
-          message="Something bad had happened."
-          mood="shocked"
-        />
-      </React.Fragment>
-    );
+    const err = props.groups.error;
+    const message =
+      (err.response && err.response.data && err.response.data.message) ||
+      err.message;
+    props.enqueueSnackbar(message, { variant: "error" });
   }
 
   if (props.groups.data.length === 0 && props.groups.loading === true) {
@@ -77,7 +69,7 @@ export const GroupsList = connect(
       </List>
     </React.Fragment>
   );
-});
+};
 
 function mapListItems(groups: Array<Group>) {
   return groups.map((group, id) => (
@@ -103,3 +95,11 @@ function sortAsc(groups: Groups) {
     draftGroups.data = sortedData;
   });
 }
+
+export const GroupsList = compose(
+  connect(
+    mapStateToProps,
+    { fetchGroups, fetchFavoriteLinksCount }
+  ),
+  withSnackbar
+)(Component) as React.FunctionComponent<{ [type: string]: any }>;
