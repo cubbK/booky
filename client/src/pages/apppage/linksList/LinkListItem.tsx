@@ -3,7 +3,7 @@ import { List } from "../../../components/List";
 import { ListItemText } from "@material-ui/core";
 import styled from "styled-components";
 import { darken } from "polished";
-import favoriteIcon from "./images/iconmonstr-star-2.svg";
+import { FaRegStar } from "react-icons/fa";
 
 const ListItemStyled = styled(List.Item)`
   && {
@@ -33,14 +33,10 @@ const Title = styled.div`
   text-overflow: ellipsis;
 `;
 
-const FavoriteIcon = styled.div`
-  min-width: 20px;
-  width: 20px;
+const FavoriteIcon = styled(FaRegStar)`
+  color: ${props => props.theme.primary};
   height: 20px;
-  cursor: pointer;
-  mask: url(${favoriteIcon}) no-repeat center;
-  background-color: ${props => props.theme.primary};
-  mask-size: contain;
+  width: 20px;
 `;
 
 interface Props {

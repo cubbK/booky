@@ -23,9 +23,6 @@ const Container = styled.div`
 
   .back-button {
     align-self: center;
-    @media (max-width: 680px) {
-      margin-top: -2px;
-    }
   }
 
   .title {

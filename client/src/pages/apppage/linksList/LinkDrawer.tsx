@@ -2,10 +2,8 @@ import * as React from "react";
 import { Drawer, Paper, Typography, Button } from "@material-ui/core";
 import { Link } from "../../../redux/reducers/linksReducer";
 import styled from "styled-components";
-import closeIcon from "./images/iconmonstr-x-mark-2.svg";
-import favoriteIcon from "./images/iconmonstr-star-2.svg";
-import deleteIcon from "./images/iconmonstr-trash-can-2.svg";
 import { PopupAlert } from "../../../components/PopupAlert";
+import { FaTimes, FaRegStar, FaRegTrashAlt } from "react-icons/fa";
 
 const Container = styled.div`
   box-sizing: border-box;
@@ -15,14 +13,14 @@ const Container = styled.div`
   height: 100%;
 `;
 
-const CloseBtn = styled.div`
+const CloseBtn = styled(FaTimes)`
+  display: block;
   margin-right: 0;
   margin-left: auto;
   width: 20px;
   height: 20px;
   cursor: pointer;
-  mask: url(${closeIcon}) no-repeat center;
-  background-color: #fff;
+  color: #fff;
 `;
 
 const CardsContainer = styled.div`
@@ -62,16 +60,13 @@ const Href = styled.a`
   }
 `;
 
-const Icon = styled.div<{ icon: string }>`
+const Icon = styled.div<{ active: boolean }>`
   margin-right: 20px;
   width: 15px;
   height: 15px;
   cursor: pointer;
-  mask: url(${props => props.icon}) no-repeat center;
-  mask-size: contain;
-  background-color: ${(props: any) =>
-    props.color === "primary" ? props.theme.primary : "#000"};
-` as any;
+  color: ${props => (props.active ? props.theme.primary : "#000")};
+`;
 
 const ActionButton = styled(Button)`
   && {
@@ -138,10 +133,9 @@ export const LinkDrawer = (props: Props) => {
               onClick={props.handleFavorite}
               color={props.link && props.link.isFavorite ? "primary" : null}
             >
-              <Icon
-                icon={favoriteIcon}
-                color={props.link && props.link.isFavorite ? "primary" : null}
-              />
+              <Icon active={props.link && props.link.isFavorite || false}>
+                <FaRegStar />
+              </Icon>
               {props.link && props.link.isFavorite ? "Unfavorite" : "Favorite"}
             </ActionButton>
             <ActionDelimiter />
@@ -150,7 +144,9 @@ export const LinkDrawer = (props: Props) => {
               size="large"
               onClick={handleDeleteAlertOpen(true)}
             >
-              <Icon icon={deleteIcon} />
+              <Icon active={props.link && props.link.isFavorite || false}>
+                <FaRegTrashAlt />
+              </Icon>
               Delete
             </ActionButton>
           </ActionsContainer>

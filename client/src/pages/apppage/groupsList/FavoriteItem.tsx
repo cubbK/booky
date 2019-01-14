@@ -3,15 +3,13 @@ import { Link } from "@reach/router";
 import { List } from "../../../components/List";
 import { GroupName } from "./GroupName";
 import { NumberIndicator } from "./NumberIndicator";
-import starIcon from "./images/iconmonstr-star-3.svg";
 import styled from "styled-components";
+import { FaStar } from "react-icons/fa";
 
-const Star = styled.img`
-  mask: url(${starIcon}) no-repeat center;
-  mask-size: contain;
+const Star = styled(FaStar)`
   width: 20px;
   height: 20px;
-  background-color: #FCC221;
+  color: #FCC221;
   margin-left: 5px;
 `;
 
