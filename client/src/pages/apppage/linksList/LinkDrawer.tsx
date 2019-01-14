@@ -44,6 +44,7 @@ const TopBar = styled.div`
 
 const Title = styled(Typography)`
   && {
+    word-break: break-all;
     line-height: 1.3;
     margin-bottom: 15px;
   }
