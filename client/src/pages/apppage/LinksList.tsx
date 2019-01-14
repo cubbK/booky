@@ -25,7 +25,10 @@ interface Props {
 }
 
 const Component: React.FunctionComponent<Props> = (props: Props) => {
+  const [startedFetching, setStartedFetching] = React.useState(false);
+
   React.useEffect(() => {
+    setStartedFetching(true);
     if (props.path === "favorites") {
       props.fetchFavorites();
     } else {
@@ -93,7 +96,7 @@ const Component: React.FunctionComponent<Props> = (props: Props) => {
     );
   }
 
-  if (props.links.data.length === 0) {
+  if (props.links.data.length === 0 && startedFetching) {
     return (
       <React.Fragment>
         <LinksListUpper title={title} />
@@ -135,8 +138,8 @@ function filterLinks(links: Links, group: string) {
 
 function filterFavoriteLinks(links: Links) {
   return produce(links, draftLinks => {
-    draftLinks.data = draftLinks.data.filter(link => link.isFavorite === true)
-  })
+    draftLinks.data = draftLinks.data.filter(link => link.isFavorite === true);
+  });
 }
 
 export const LinksList = compose(
