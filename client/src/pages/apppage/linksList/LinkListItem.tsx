@@ -37,6 +37,7 @@ const FavoriteIcon = styled(FaRegStar)`
   color: ${props => props.theme.primary};
   height: 20px;
   width: 20px;
+  min-width: 20px;
 `;
 
 interface Props {
