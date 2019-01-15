@@ -3,8 +3,8 @@ import styled from "styled-components";
 import { Layout } from "../../components/Layout";
 import { Link } from "@reach/router";
 import logo from "../../shared/logo.png";
-import mountains from "./mountains-header.png";
-import phoneTop from "./phoneTop.png";
+import mountains from "./header/mountains-header.png";
+import phoneSliced from "./header/phoneSliced.png";
 import { GoogleButtonContainer } from "./GoogleButtonContainer";
 
 const Nav = styled.nav`
@@ -58,9 +58,11 @@ const LayoutCentered = styled(Layout)`
 `;
 
 const PhoneContainer = styled.div`
+  position: relative;
   width: 360px;
   margin-top: 50px;
-  @media(max-width: 450px) {
+  margin-bottom: -3px;
+  @media (max-width: 450px) {
     width: 280px;
   }
 `;
@@ -68,6 +70,20 @@ const PhoneContainer = styled.div`
 const PhoneImage = styled.img`
   width: 100%;
   height: 100%;
+`;
+
+const Video = styled.video`
+  position: absolute;
+  display: block;
+  max-width: 100%;
+  top: 54px;
+  left: 8px;
+  width: 344px;
+  @media (max-width: 450px) {
+    top: 42px;
+    left: 6px;
+    width: 268px;
+  }
 `;
 
 export class Header extends React.Component {
@@ -82,7 +98,22 @@ export class Header extends React.Component {
           <LayoutCentered>
             <GoogleButtonContainer />
             <PhoneContainer>
-              <PhoneImage src={phoneTop} alt="App Showcase" />
+              <PhoneImage src={phoneSliced} />
+              <Video
+                autoPlay={true}
+                loop={true}
+                muted={true}
+                poster={process.env.PUBLIC_URL + "/video/video-placeholder.png"}
+              >
+                <source
+                  src={process.env.PUBLIC_URL + "/video/video.mp4"}
+                  type="video/mp4"
+                />
+                <source
+                  src={process.env.PUBLIC_URL + "/video/video.webm"}
+                  type="video/webm"
+                />
+              </Video>
             </PhoneContainer>
           </LayoutCentered>
         </PhotoContainer>
