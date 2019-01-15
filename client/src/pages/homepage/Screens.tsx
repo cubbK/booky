@@ -1,7 +1,10 @@
 import * as React from "react";
 import styled from "styled-components";
-import phone from "./phone.png";
-import screen from "./screen.png";
+import phone1 from "./screens/Phone1.png";
+import screenshot1 from "./screens/Screenshot1.png";
+import screenshot2 from "./screens/Screenshot2.png";
+import screenshot3 from "./screens/Screenshot3.png";
+import screenshot4 from "./screens/Screenshot4.png";
 
 const Container = styled.section`
   background-color: #f5f5f8;
@@ -70,9 +73,12 @@ const Phone = styled.img`
 `;
 
 const Photo = styled.img`
-  height: 92%;
-  margin: 0 15px 35px;
+  height: 87%;
+  margin: -19px 15px -56px;
   box-shadow: 0px 10px 20px 0px rgba(0, 0, 0, 0.75);
+  @media (max-width: 1270px) {
+    margin: -32px 15px -56px;
+  }
   @media (max-width: 650px) {
     height: 500px;
     margin: 0 0 15px;
@@ -85,11 +91,11 @@ export const Screens = (props: any) => (
     <StylishLine />
     <Subtitle>Clean and easy to use</Subtitle>
     <PhotosContainer>
-      <Photo src={screen} />
-      <Photo src={screen} />
-      <Phone src={phone} />
-      <Photo src={screen} />
-      <Photo src={screen} />
+      <Photo src={screenshot1} />
+      <Photo src={screenshot2} />
+      <Phone src={phone1} />
+      <Photo src={screenshot3} />
+      <Photo src={screenshot4} />
     </PhotosContainer>
   </Container>
 );
