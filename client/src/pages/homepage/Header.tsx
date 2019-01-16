@@ -61,7 +61,7 @@ const PhoneContainer = styled.div`
   position: relative;
   width: 360px;
   margin-top: 50px;
-  margin-bottom: -3px;
+  margin-bottom: -3.5px; 
   @media (max-width: 450px) {
     width: 280px;
   }
@@ -69,7 +69,6 @@ const PhoneContainer = styled.div`
 
 const PhoneImage = styled.img`
   width: 100%;
-  height: 100%;
 `;
 
 const Video = styled.video`
