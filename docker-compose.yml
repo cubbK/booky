@@ -2,13 +2,13 @@ version: "3"
 
 services:
   db:
-    image: mongo
+    image: mariadb
     restart: always
-    volumes:
-      - db-data:/data/db
-    
     environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: root
-volumes:
-  ? db-data
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: booky
+    ports:
+      - "3306:3306"
+
+
+# docker compose down -v    // -v removes volumes

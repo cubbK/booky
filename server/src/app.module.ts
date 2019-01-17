@@ -15,7 +15,7 @@ import { AccessControlModule } from 'nest-access-control';
       host: 'localhost',
       port: 3306,
       username: 'root',
-      password: '',
+      password: 'root',
       database: 'booky',
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,
