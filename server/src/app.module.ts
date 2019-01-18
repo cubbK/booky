@@ -12,7 +12,7 @@ import { AccessControlModule } from 'nest-access-control';
   imports: [
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: 'mysql://db:3306',
+      host: 'db',
       port: 3306,
       username: 'root',
       password: 'root',

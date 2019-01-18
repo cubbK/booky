@@ -58,6 +58,7 @@ export class LinksController {
   @Post()
   @UseGuards(AuthGuard('jwt'))
   async addLink(@UserIdFromJwt() userId, @Body() link: LinkDto) {
+    console.log('add link');
     return this.linksService.addLink(link, userId);
   }
 

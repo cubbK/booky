@@ -29,6 +29,7 @@ export class LinksService {
     const link = new Link();
     link.url = data.url;
     link.user = user;
+    link.isFavorite = false;
     link.group = getGroupNameFromLink(data.url);
     link.title = pageInfo.title;
 

@@ -7,11 +7,16 @@ services:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: booky
     ports:
-      - "3306:3306" # db is accesible from other services as
-      # mysql://db:3306
+      - "3306:3306"
   server:
     build: ./server
     depends_on:
       - db
     ports:
       - "4001:4001"
+  client:
+    build: ./client
+    depends_on: 
+      - server
+    ports:
+      - "3000:80"
