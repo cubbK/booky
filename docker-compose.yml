@@ -12,12 +12,14 @@ services:
       - db_data:/var/lib/mysql/data
   server:
     build: ./server
+    restart: always
     depends_on:
       - db
     ports:
       - "4001:4001"
   client:
     build: ./client
+    restart: always
     depends_on:
       - server
     ports:
