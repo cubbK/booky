@@ -16,11 +16,15 @@ services:
       - db
     ports:
       - "4001:4001"
+    env_file:
+    - server-variables.env
   client:
     build: ./client
     depends_on:
       - server
     ports:
       - "3000:80"
+    env_file:
+    - client-variables.env
 volumes:
   db_data:
