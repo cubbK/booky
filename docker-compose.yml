@@ -8,6 +8,8 @@ services:
       MYSQL_DATABASE: booky
     ports:
       - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql/data
   server:
     build: ./server
     depends_on:
@@ -16,7 +18,9 @@ services:
       - "4001:4001"
   client:
     build: ./client
-    depends_on: 
+    depends_on:
       - server
     ports:
       - "3000:80"
+volumes:
+  db_data:
