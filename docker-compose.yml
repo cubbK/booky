@@ -22,8 +22,6 @@ services:
       - db
     ports:
       - "4001:4001"
-    volumes:
-      - ./server:/usr/src/app
     env_file:
       - ./server/.env
   client:
