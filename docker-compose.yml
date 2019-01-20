@@ -22,12 +22,16 @@ services:
       - db
     ports:
       - "4001:4001"
+    volumes:
+      - ./server:/usr/src/app
+    env_file:
+      - ./server/.env
   client:
     build: ./client
     restart: always
     depends_on:
       - server
     ports:
-      - "3000:80"
+      - "3000:3000"
 volumes:
   db_data:

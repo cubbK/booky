@@ -1,6 +1,4 @@
-import dotenv from 'dotenv';
-dotenv.config();
-
+console.log(1234);
 export const googleClientId = process.env.GOOGLE_CLIENT_ID;
 export const googleClientSecret = process.env.GOOGLE_CLIENT_SECRET;
 export const jwtSecret = process.env.JWT_SECRET;
