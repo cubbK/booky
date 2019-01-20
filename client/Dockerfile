@@ -1,9 +1,11 @@
 # Stage 1
 FROM node:9.10.1 as react-build
 WORKDIR /app
-COPY . ./
+COPY package*.json ./
 RUN npm install
+COPY . ./
 RUN npm run build
+
 
 # Stage 2 - the production environment
 FROM nginx:alpine
