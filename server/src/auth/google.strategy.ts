@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { Strategy } from 'passport-google-oauth20';
-import { googleClientId, googleClientSecret } from 'src/constants';
+import { googleClientId, googleClientSecret, backendUrl } from 'src/constants';
 import { AuthService, Provider } from './auth.service';
 
 @Injectable()
@@ -10,7 +10,7 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
     super({
       clientID: googleClientId, // <- Replace this with your client id
       clientSecret: googleClientSecret, // <- Replace this with your client secret
-      callbackURL: 'http://localhost:4001/auth/google/callback',
+      callbackURL: `${backendUrl}/auth/google/callback`,
       passReqToCallback: true,
       scope: ['email'],
     });
