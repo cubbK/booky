@@ -3,8 +3,13 @@ services:
   nginx:
     build: ./nginx
     restart: always
-    ports: 
+    container_name: nginx
+    ports:
       - "80:80"
+      - "443:443"
+    volumes:
+      - certs:/etc/letsencrypt
+      - certs-data:/data/letsencrypt
   db:
     image: mariadb
     restart: always
