@@ -2,14 +2,17 @@ version: "3"
 services:
   nginx:
     build: ./nginx
-    restart: always
-    container_name: nginx
     ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - certs:/etc/letsencrypt
-      - certs-data:/data/letsencrypt
+      - 80:80
+      - 443:443
+    environment:
+      - EMAIL=cubb.lama@gmail.com
+      - URL=cubbk.cc
+      - SUBDOMAINS=www,booky,api.booky
+      - VALIDATION=http
+      - TZ=Europe/Stockholm
+      - PUID=1000
+      - PGID=1000
   db:
     image: mariadb
     restart: always
@@ -36,5 +39,5 @@ services:
       - server
     ports:
       - "3000:3000"
-volumes:
+volumes:                         
   db_data:

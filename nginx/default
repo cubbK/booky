@@ -1,19 +1,21 @@
+# listening on port 80 disabled by default, remove the "#" signs to enable
+# redirect all traffic to https
 server {
- listen 80;
- server_name _;
- return 301 https://$host$request_uri;
+        listen 80;
+        listen [::]:80;
+        server_name _;
+        return 301 https://$host$request_uri;
 }
 
 server {
         listen 443 ssl http2;
         listen [::]:443 ssl http2;
         server_name api.booky.cubbk.cc;
-
             # enable subfolder method reverse proxy confs
-      include /config/nginx/proxy-confs/*.subfolder.conf;
+        include /config/nginx/proxy-confs/*.subfolder.conf;
 
       # all ssl related config moved to ssl.conf
-      include /config/nginx/ssl.conf;
+         include /config/nginx/ssl.conf;
 
         location / {
             proxy_pass http://server:4001/;
@@ -21,7 +23,7 @@ server {
             proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         }
 
-     
+
 }
 
 server {
@@ -40,5 +42,10 @@ server {
             proxy_set_header X-Real-IP $remote_addr;
             proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         }
-       
+
 }
+
+# enable subdomain method reverse proxy confs
+include /config/nginx/proxy-confs/*.subdomain.conf;
+# enable proxy cache for auth
+proxy_cache_path cache/ keys_zone=auth_cache:10m;

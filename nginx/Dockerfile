@@ -1,4 +1,3 @@
-FROM nginx:alpine
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+FROM linuxserver/letsencrypt
+COPY default /config/nginx/site-confs/
 EXPOSE 80 443
-CMD ["nginx", "-g", "daemon off;"]
