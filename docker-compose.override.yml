@@ -1,0 +1,10 @@
+version: "3"
+services:
+  db:
+  server:
+    command: npm run start:dev
+    volumes:
+      - ./server:/app
+  client:
+    volumes:
+      - ./client:/app

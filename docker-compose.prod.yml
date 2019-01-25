@@ -1,0 +1,15 @@
+version: "3"
+services:
+  nginx:
+    build: ./nginx
+    ports:
+      - 80:80
+      - 443:443
+    environment:
+      - EMAIL=cubb.lama@gmail.com
+      - URL=cubbk.cc
+      - SUBDOMAINS=www,booky,api.booky
+      - VALIDATION=http
+      - TZ=Europe/Stockholm
+      - PUID=1000
+      - PGID=1000

@@ -38,4 +38,4 @@ $ npm run start:prod
 ```
 ## API Documentation
 
-https://documenter.getpostman.com/view/3950309/RzfZNXfU#cf370948-f9d2-4e41-86f1-ab5012ae6a16
+https://documenter.getpostman.com/view/3950309/RzfZNXfU#cf370948-f9d2-4e41-86f1-ab5012ae6a16   
