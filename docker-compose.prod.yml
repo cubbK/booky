@@ -13,3 +13,7 @@ services:
       - TZ=Europe/Stockholm
       - PUID=1000
       - PGID=1000
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile-prod

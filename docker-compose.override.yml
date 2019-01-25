@@ -6,5 +6,6 @@ services:
     volumes:
       - ./server:/app
   client:
+    command: npm start
     volumes:
       - ./client:/app
