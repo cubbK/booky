@@ -6,8 +6,6 @@ Booky is a web app where you can store your bookmarks which are automatically gr
   <img width="670" src="./readme-screenshot.png">
 </p>
 
-## How it works
-
 ## Getting Started
 
 Docker is used through the entire project, so you'll have to install it for a pleasant dev experience, though it's possible to run everything locally without using docker making some small changes.
