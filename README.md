@@ -12,11 +12,15 @@ Booky is a web app where you can store your bookmarks which are automatically gr
 
 Docker is used through the entire project, so you'll have to install it for a pleasant dev experience, though it's possible to run everything locally without using docker making some small changes.
 
-1. Create and fill an `.env` file in `client`, `server` and `db` folders, using as an example the `.env.example` file situated in each folder.
+1. Create and fill an `.env` file in `client`, `server` and `db` folders, using as an example the `.env.example` file situated in each folder. 
 
 2. Build the containers with `$ docker-compose build`.
 
 3. Start the containers with `$ docker-compose up`. To get separated output from each container start them in different terminals with for ex. `$ docker-compose up server`.
+
+The google credentials can be obtained by creating an app at https://console.developers.google.com and creating OAuth client Id credentials at Credentials tab with the Web application option selected.
+
+![OAtuh](./googleOauth.png)
 
 ## Deployment
 
@@ -35,3 +39,6 @@ The deployment is almost the same except that we need to use the `docker-compose
  * [NestJs](https://nestjs.com/) - A progressive Node.js framework for building efficient, reliable and scalable server-side applications.
  * [TypeORM](http://typeorm.io/#/) - An ORM built with Typescript
  * [linuxserver/letsencrypt](https://github.com/linuxserver/docker-letsencrypt) - Nginx webserver and reverse proxy with php support and a built-in letsencrypt client
+
+ ## Server Api Documentation 
+  You can view the api documentation [here](https://documenter.getpostman.com/view/3950309/RzfZNXfU#cf370948-f9d2-4e41-86f1-ab5012ae6a16)
