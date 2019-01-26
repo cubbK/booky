@@ -3,7 +3,8 @@ import * as cheerio from 'cheerio';
 
 export async function getPageInfo(link) {
   try {
-    const request = await axios.get(link);
+    const normalizedLink = normalizeLink(link);
+    const request = await axios.get(normalizedLink);
 
     const $ = cheerio.load(request.data);
 
@@ -17,5 +18,13 @@ export async function getPageInfo(link) {
       err: 'Error getting info',
       title: null,
     };
+  }
+}
+
+function normalizeLink(link: string): string {
+  if (link.includes('http://') || link.includes('https://')) {
+    return link;
+  } else {
+    return 'http://' + link;
   }
 }
