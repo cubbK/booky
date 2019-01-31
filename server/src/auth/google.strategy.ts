@@ -13,6 +13,7 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
       callbackURL: `${backendUrl}/auth/google/callback`,
       passReqToCallback: true,
       scope: ['email'],
+      userProfileURL: 'https://www.googleapis.com/oauth2/v3/userinfo',
     });
   }
 
@@ -24,7 +25,6 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
     done: (err: any, user: any) => void,
   ) {
     try {
-
       const jwt: string = await this.authService.validateOAuthLogin(
         profile.id,
         Provider.GOOGLE,
